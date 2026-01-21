@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE:ZEN | Roblox Animator</title>
+    <title>RE:ZEN | Roblox Journey</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- GUNS.LOL / DISCORD DARK THEME --- */
+        /* --- NASTAVENÍ BAREV (ROBLOX GREEN THEME) --- */
         :root {
-            --bg: #000000;
+            --bg: #050505;
             --card-bg: #111111;
-            --discord-bg: #232428; /* Barva pozadí profilu */
-            --discord-header: #111214; /* Barva banneru pokud není obrázek */
-            --discord-btn: #248046; /* Zelená tlačítka */
-            --accent: #ffffff;
+            --discord-bg: #232428;
+            --discord-header: #111214;
+            /* Nová Roblox zelená */
+            --accent-green: #00b06f; 
             --text-muted: #b9bbbe;
-            --border: #333;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,22 +30,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-image: radial-gradient(circle at 50% 0%, #222 0%, #000 70%);
+            background-image: radial-gradient(circle at 50% 0%, #1a2b20 0%, #000 70%); /* Jemný zelený nádech pozadí */
         }
 
-        /* --- MAIN CONTAINER (Center) --- */
-        .main-container {
-            width: 100%;
-            max-width: 700px;
-            padding: 40px 20px;
-            text-align: center;
-        }
+        .main-container { width: 100%; max-width: 700px; padding: 40px 20px; text-align: center; }
 
+        /* --- HORNÍ TEXT S ANIMACÍ --- */
         .title-area { margin-bottom: 40px; }
-        h1 { font-size: 3rem; font-weight: 900; letter-spacing: -2px; }
-        .subtitle { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+        
+        /* Definice animace pulzování */
+        @keyframes greenPulse {
+            0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-green); }
+            50% { text-shadow: 0 0 10px #fff, 0 0 20px var(--accent-green), 0 0 30px var(--accent-green); }
+            100% { text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-green); }
+        }
 
-        /* --- THE DISCORD CARD (Guns.lol style) --- */
+        h1 { 
+            font-size: 3rem; 
+            font-weight: 900; 
+            letter-spacing: -2px; 
+            color: white;
+            /* Aplikace animace */
+            animation: greenPulse 3s infinite alternate ease-in-out;
+        }
+        
+        .subtitle { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: bold; margin-top: 10px; }
+
+        /* --- DISCORD CARD --- */
         .discord-card {
             background-color: var(--discord-bg);
             border-radius: 12px;
@@ -56,171 +66,65 @@
             overflow: hidden;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #000;
+            border: 1px solid #333;
             position: relative;
         }
 
-        /* Banner */
-        .dc-banner {
-            height: 120px;
-            background-color: var(--discord-header); /* Fallback color */
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Avatar Area */
-        .dc-header {
-            padding: 0 20px;
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .dc-avatar-wrapper {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: var(--discord-bg);
-            padding: 6px;
-            margin-top: -50px; /* Posun nahoru do banneru */
-            position: relative;
-        }
-
-        .dc-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-size: cover;
-        }
-
-        .dc-status-indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: gray;
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            border: 4px solid var(--discord-bg);
-        }
-
-        /* User Info */
-        .dc-info {
-            background-color: #111214;
-            margin: 15px;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
+        .dc-banner { height: 120px; background-color: var(--discord-header); background-size: cover; background-position: center; }
+        .dc-header { padding: 0 20px; position: relative; margin-bottom: 15px; }
+        .dc-avatar-wrapper { width: 90px; height: 90px; border-radius: 50%; background: var(--discord-bg); padding: 6px; margin-top: -50px; position: relative; }
+        .dc-avatar { width: 100%; height: 100%; border-radius: 50%; background-size: cover; }
+        .dc-status-indicator { width: 20px; height: 20px; border-radius: 50%; background: gray; position: absolute; bottom: 5px; right: 5px; border: 4px solid var(--discord-bg); }
+        .dc-info { background-color: #111214; margin: 15px; padding: 15px; border-radius: 8px; }
         .dc-username { font-size: 1.3rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
-        .dc-tag { color: var(--text-muted); font-size: 1rem; font-weight: 400; }
         
-        .dc-badges {
-            margin-top: 5px;
-            display: flex;
-            gap: 5px;
-        }
-        .dc-badge {
-            background: #333;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            color: #ccc;
-            font-family: monospace;
-        }
+        .dc-badges { margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap; }
+        .dc-badge { background: #333; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; color: #eee; font-family: monospace; display: flex; align-items: center; gap: 5px;}
+        /* Zvýraznění Roblox odznaku */
+        .badge-roblox { background: rgba(0, 176, 111, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
 
-        /* Custom Status & About Me */
         .dc-body { padding: 0 15px 20px 15px; }
-        
-        .section-header {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            margin-top: 15px;
-        }
-
+        .section-header { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; margin-top: 15px; }
         .dc-text { font-size: 0.9rem; color: #dcddde; line-height: 1.4; white-space: pre-wrap; }
 
-        /* ACTIVITY (Hra/Roblox) */
-        .dc-activity {
-            background: #18191c; /* Tmavší box pro aktivitu */
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+        .dc-activity { background: #18191c; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px; margin-top: 10px; }
         .act-img { width: 50px; height: 50px; border-radius: 8px; background: #333; object-fit: cover; }
         .act-info h4 { font-size: 0.85rem; font-weight: 700; color: white; }
         .act-info p { font-size: 0.75rem; color: var(--text-muted); }
 
-        /* Button */
-        .dc-btn {
-            display: block;
-            background-color: #5865F2; /* Discord Blurple */
-            color: white;
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 15px;
-            transition: 0.2s;
-        }
-        .dc-btn:hover { background-color: #4752c4; }
+        .dc-btn { display: block; background-color: var(--accent-green); color: white; text-align: center; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: 600; margin: 15px; transition: 0.2s; }
+        .dc-btn:hover { background-color: #008a57; }
 
-        /* --- PORTFOLIO GRID (Roblox Showcase) --- */
-        .portfolio-area {
-            width: 100%;
-            margin-top: 50px;
-        }
-        .grid-title { text-align: left; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
+        /* --- PORTFOLIO GRID (VIDEOS SUPPORTED) --- */
+        .portfolio-area { width: 100%; margin-top: 50px; }
+        .grid-title { text-align: left; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent-green); text-transform: uppercase;}
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
-        .card {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-        .card:hover { border-color: #5865F2; transform: translateY(-3px); }
+        .card { background: #0a0a0a; border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: 0.3s; }
+        .card:hover { border-color: var(--accent-green); transform: translateY(-3px); }
 
+        /* Styl pro obrázky */
         .thumb { height: 160px; background: #151515; background-size: cover; background-position: center; position: relative; }
-        .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s;
-        }
-        .card:hover .video-overlay { opacity: 1; }
+        /* Styl pro videa */
+        .thumb-video { width: 100%; height: 160px; object-fit: cover; display: block; background: #000; }
         
         .info { padding: 15px; text-align: left; }
         .info h3 { font-size: 1rem; color: white; margin-bottom: 5px; }
         .info p { font-size: 0.8rem; color: #888; }
 
-        /* Footer */
         footer { margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <div class="main-container">
-        
         <div class="title-area">
             <h1 id="page-title">RE:ZEN</h1>
-            <p class="subtitle" id="page-role">ROBLOX ANIMATOR & DEV</p>
+            <p class="subtitle" id="page-role">BEGINNER ROBLOX ANIMATOR</p>
         </div>
 
         <div class="discord-card">
             <div class="dc-banner" id="dc-banner"></div>
-            
             <div class="dc-header">
                 <div class="dc-avatar-wrapper">
                     <img src="" class="dc-avatar" id="dc-avatar">
@@ -233,112 +137,106 @@
                     <span id="dc-username">Loading...</span>
                 </div>
                 <div class="dc-badges">
-                    <span class="dc-badge"><i class="fas fa-code"></i> Dev</span>
-                    <span class="dc-badge"><i class="fas fa-video"></i> Animator</span>
-                    <span class="dc-badge">Roblox</span>
+                    <span class="dc-badge badge-roblox"><i class="fas fa-cube"></i> Roblox Dev</span>
+                    <span class="dc-badge"><i class="fas fa-video"></i> Learning Anim</span>
                 </div>
             </div>
 
             <div class="dc-body">
-                <div class="section-header">ABOUT ME</div>
-                <div class="dc-text" id="dc-bio">
-                    Creating smooth animations on Roblox.
-                    Commission status: OPEN ✅
-                </div>
+                <div class="section-header">ABOUT ME & MY JOURNEY</div>
+                <div class="dc-text" id="dc-bio">...</div>
 
-                <div class="section-header">ACTIVITY</div>
+                <div class="section-header">CURRENTLY PLAYING</div>
                 <div id="activity-box">
                     <div class="dc-activity">
                         <div class="act-img" style="background: #2f3136; display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-gamepad" style="color: #555;"></i>
                         </div>
                         <div class="act-info">
-                            <h4>No game detected</h4>
-                            <p>Just chilling...</p>
+                            <h4>Loading Discord...</h4>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <a href="#" class="dc-btn" id="dc-btn-link" target="_blank">Message on Discord</a>
+            <a href="#" class="dc-btn" id="dc-btn-link" target="_blank">Add on Discord</a>
         </div>
 
         <div class="portfolio-area">
-            <h2 class="grid-title">Recent Animations</h2>
+            <h2 class="grid-title">My Learning Progress (Videos/GIFs)</h2>
             <div class="grid" id="projects-grid">
                 </div>
         </div>
-
     </div>
 
-    <footer>
-        <p>© 2026 RE:ZEN | Built for Roblox Community</p>
-    </footer>
+    <footer><p>© 2026 RE:ZEN | My Learning Journey</p></footer>
 
     <script>
         const config = {
-            discordID: '868393762555043870', // Tvoje ID (už jsem ho tam dal)
-            
-            // Texty na stránce
+            discordID: '868393762555043870', // Tvoje ID
+
+            // Texty nahoře (upraveno pro začátečníka)
             pageTitle: "RE:ZEN",
-            role: "< ROBLOX ANIMATOR / DEVELOPER >",
+            role: "< BEGINNER ROBLOX ANIMATOR >",
             
-            // Text uvnitř Discord karty ("About Me")
-            bio: "Experienced Roblox Animator.\nSpecializing in combat & cutscenes.\nTools: Moon Animator, Blender.",
+            // Text v kartě ("About Me")
+            bio: "Hi! I'm new to Roblox animation and development.\nCurrently learning Moon Animator & Blender basics.\nDocumenting my progress here.",
             
-            // Tlačítko na Discord kartě
             discordLink: "https://discord.com/users/868393762555043870", 
+            bannerColor: "#00b06f", // Zelená barva banneru
 
-            // Nastavení Banneru Discord karty (pokud nemáš Nitro, použij barvu)
-            bannerColor: "#5865F2", // Barva banneru (hex kód)
-            // bannerImage: "URL_OBRAZKU", // Pokud chceš obrázek, odkomentuj a vlož URL
-
-            // SEZNAM TVÝCH ROBLOX ANIMACÍ
+            // SEZNAM PROJEKTŮ - NYNÍ PODPORUJE VIDEA!
+            // DŮLEŽITÉ: Pokud dáváš video, odkaz MUSÍ končit na .mp4 nebo .webm
+            // Pokud dáváš obrázek/gif, může končit na .jpg, .png, .gif
             projects: [
                 {
-                    title: "Combat Sword Combo",
-                    desc: "Moon Animator | Smooth easing",
-                    image: "https://placehold.co/600x400/111/FFF?text=Combat+Anim" // Změň za screen z Robloxu
+                    title: "My First Walk Cycle Attempt",
+                    desc: "Learning basics of R15 movement.",
+                    // PŘÍKLAD VIDEA (musí to být přímý odkaz na soubor .mp4)
+                    // Pro test jsem použil ukázkové video, nahraď ho svým!
+                    media: "https://www.w3schools.com/html/mov_bbb.mp4" 
                 },
                 {
-                    title: "R15 Walk Cycle",
-                    desc: "Realistic movement study",
-                    image: "https://placehold.co/600x400/222/FFF?text=Walk+Cycle"
+                    title: "Simple Sword Swing",
+                    desc: "Trying out easing styles in Moon Animator.",
+                    // PŘÍKLAD OBRÁZKU/GIFU
+                    media: "https://placehold.co/600x400/00b06f/FFF?text=GIF+Placeholder"
                 },
                 {
-                    title: "Cutscene Intro",
-                    desc: "For [Game Name]",
-                    image: "https://placehold.co/600x400/000/FFF?text=Cutscene"
+                    title: "Blender Donut (Classic)",
+                    desc: "Following the famous tutorial to learn 3D.",
+                    media: "https://placehold.co/600x400/222/FFF?text=Blender+Render"
                 }
             ]
         };
 
         // =======================================================
-        // ⛔ SYSTEM CODE (DO NOT EDIT BELOW)
+        // ⛔ MOTOR WEBU (NEMĚNIT)
         // =======================================================
 
-        // 1. Aplikace Configu
         document.getElementById('page-title').innerText = config.pageTitle;
         document.getElementById('page-role').innerText = config.role;
         document.getElementById('dc-bio').innerText = config.bio;
         document.getElementById('dc-btn-link').href = config.discordLink;
         
-        // Nastavení banneru
         const bannerEl = document.getElementById('dc-banner');
-        if(config.bannerImage) {
-            bannerEl.style.backgroundImage = `url('${config.bannerImage}')`;
-        } else {
-            bannerEl.style.backgroundColor = config.bannerColor;
-        }
+        if(config.bannerImage) { bannerEl.style.backgroundImage = `url('${config.bannerImage}')`; } else { bannerEl.style.backgroundColor = config.bannerColor; }
 
-        // Generování projektů
+        // CHYTRÉ GENEROVÁNÍ PROJEKTŮ (Video vs Obrázek)
         const grid = document.getElementById('projects-grid');
         config.projects.forEach(p => {
+            let mediaElement = '';
+            // Jednoduchá kontrola, jestli odkaz končí na koncovku videa
+            if (p.media.endsWith('.mp4') || p.media.endsWith('.webm')) {
+                // Je to video -> vytvoříme <video> tag
+                mediaElement = `<video src="${p.media}" autoplay loop muted playsinline class="thumb-video"></video>`;
+            } else {
+                // Je to obrázek nebo GIF -> vytvoříme <div> s pozadím
+                mediaElement = `<div class="thumb" style="background-image: url('${p.media}');"></div>`;
+            }
+
             grid.innerHTML += `
                 <div class="card">
-                    <div class="thumb" style="background-image: url('${p.image}')">
-                        <div class="video-overlay"><i class="fas fa-play fa-2x"></i></div>
-                    </div>
+                    ${mediaElement}
                     <div class="info">
                         <h3>${p.title}</h3>
                         <p>${p.desc}</p>
@@ -347,89 +245,39 @@
             `;
         });
 
-        // 2. Lanyard API (Live Discord Data)
+        // Lanyard Discord API
         async function loadDiscord() {
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/${config.discordID}`);
                 const json = await res.json();
-                
                 if(!json.success) return;
                 const data = json.data;
-
-                // Username
                 document.getElementById('dc-username').innerText = data.discord_user.username;
-                
-                // Avatar
                 const av = document.getElementById('dc-avatar');
-                if(data.discord_user.avatar) {
-                    av.src = `https://cdn.discordapp.com/avatars/${config.discordID}/${data.discord_user.avatar}.png`;
-                } else {
-                    av.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-                }
-
-                // Status Colors
+                av.src = data.discord_user.avatar ? `https://cdn.discordapp.com/avatars/${config.discordID}/${data.discord_user.avatar}.png` : "https://cdn.discordapp.com/embed/avatars/0.png";
+                
                 const colors = { online: '#3ba55c', idle: '#faa61a', dnd: '#ed4245', offline: '#747f8d' };
                 const statColor = colors[data.discord_status] || colors.offline;
                 document.getElementById('dc-status').style.backgroundColor = statColor;
-                document.getElementById('dc-status').style.boxShadow = `0 0 0 4px var(--discord-bg)`; // border fix
 
-                // Banner from Discord (if available and not overridden)
-                // Lanyard bohužel neposílá banner přímo v základním endpointu vždy spolehlivě bez auth,
-                // takže spoléháme na tvůj config bannerColor.
-
-                // Activity / Game
                 const actBox = document.getElementById('activity-box');
-                const activities = data.activities.filter(a => a.type !== 4); // Filter custom status
-
+                const activities = data.activities.filter(a => a.type !== 4);
                 if(activities.length > 0) {
                     const act = activities[0];
                     let iconUrl = "";
-                    
-                    // Pokus o získání ikony hry
                     if(act.assets && act.assets.large_image) {
-                        if(act.assets.large_image.startsWith("mp:")) {
-                             iconUrl = `https://media.discordapp.net/${act.assets.large_image.replace("mp:", "")}`;
-                        } else {
-                             iconUrl = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
-                        }
-                    }
-
-                    // Pokud je to Spotify
-                    if(act.id === "spotify:1") {
+                        iconUrl = act.assets.large_image.startsWith("mp:") ? `https://media.discordapp.net/${act.assets.large_image.replace("mp:", "")}` : `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
+                    } else if(act.id === "spotify:1") {
                          iconUrl = act.assets.large_image ? `https://i.scdn.co/image/${act.assets.large_image.replace("spotify:", "")}` : "";
                     }
-
-                    // Vykreslení
-                    actBox.innerHTML = `
-                        <div class="dc-activity">
-                            <img src="${iconUrl}" class="act-img" onerror="this.style.display='none'">
-                            <div class="act-info">
-                                <h4>${act.name}</h4>
-                                <p>${act.details || act.state || "Playing..."}</p>
-                            </div>
-                        </div>
-                    `;
+                    actBox.innerHTML = `<div class="dc-activity"><img src="${iconUrl}" class="act-img" onerror="this.style.display='none'"><div class="act-info"><h4>${act.name}</h4><p>${act.details || act.state || "Playing..."}</p></div></div>`;
                 } else {
-                    // Custom status (pokud nic nehraješ)
                     const custom = data.activities.find(a => a.type === 4);
-                    if(custom) {
-                        actBox.innerHTML = `
-                        <div class="dc-activity">
-                            <div class="act-info">
-                                <h4>Custom Status</h4>
-                                <p>${custom.state || ""}</p>
-                            </div>
-                        </div>`;
-                    }
+                    actBox.innerHTML = `<div class="dc-activity"><div class="act-info"><h4>${custom ? "Custom Status" : "Just Chilling"}</h4><p>${custom ? (custom.state || "") : "No game detected"}</p></div></div>`;
                 }
-
-            } catch(e) {
-                console.log(e);
-            }
+            } catch(e) { console.log(e); }
         }
-        
-        loadDiscord();
-        setInterval(loadDiscord, 10000); // Refresh každých 10s
+        loadDiscord(); setInterval(loadDiscord, 10000);
     </script>
 </body>
 </html>
