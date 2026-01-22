@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RE:ZEN | Roblox Animator Portfolio</title>
+    
+    <link rel="icon" href="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-8B55070087790D7824888062010C2404-Png/150/150/AvatarHeadshot/Png/noFilter" type="image/png">
+
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
@@ -253,7 +256,7 @@
 
     <nav>
         <div class="logo">
-            <img src="https://images-ext-1.discordapp.net/external/Bts8s8YfClENtE_mNCDfZ5wUWSilbHmJ9F8xPopNOG4/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/868393762555043870/362c59f0bd0fd33b9ed064bce1c7b93d.png?format=webp&quality=lossless" alt="Logo">
+            <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-8B55070087790D7824888062010C2404-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Logo">
             RE:<span>ZEN</span>
         </div>
         <div class="nav-links">
@@ -399,48 +402,36 @@
             // 1. WEBHOOK CONFIGURATION
             const webhookUrl = "https://discord.com/api/webhooks/1463690525092741333/Wac3lIXI5yYdtSo6w8QgXbWnahVisKr6xIUTh3p7DXLRZxSC2Vin8ZTgXOEDVG6M96eM";
             
-            // 2. TVOJE DISCORD ID
+            // 2. DISCORD ID
             const myDiscordID = "868393762555043870"; 
 
             const name = document.getElementById('senderName').value;
             const msg = document.getElementById('message').value;
 
             // Logika pro PING
-            // Použije tvé ID pro označení v Discordu
             let contentText = "||@everyone|| **Nová zpráva z portfolia!** 🚀";
             if(myDiscordID) {
                 contentText = `||<@${myDiscordID}>|| **Nová zpráva z portfolia!** 🚀`;
             }
 
             const payload = {
-                username: "RE:ZEN System",
-                avatar_url: "https://cdn-icons-png.flaticon.com/512/3067/3067347.png",
+                username: "Portfolio Bot",
+                // Zde se dá nastavit avatar bota, pokud chceš jiný
                 content: contentText, 
                 embeds: [{
-                    title: "📨 Nová Poptávka / Zpráva",
+                    title: "📨 Nová zpráva z webu!",
                     color: 65437, // Neon Green (#00ff9d)
-                    thumbnail: { 
-                        url: "https://cdn-icons-png.flaticon.com/512/2906/2906274.png" // 3D obálka
-                    },
                     fields: [
                         { 
-                            name: "👤 Odesílatel", 
-                            value: `**\`${name}\`**`, 
-                            inline: true 
+                            name: "Odesílatel", 
+                            value: name, 
+                            inline: false // Aby to bylo pod sebou jako na screenshotu
                         },
                         { 
-                            name: "⏰ Čas přijetí", 
-                            // Discord formát času (lokalizovaný do češtiny)
-                            value: `<t:${Math.floor(Date.now() / 1000)}:f> (<t:${Math.floor(Date.now() / 1000)}:R>)`, 
-                            inline: true 
-                        },
-                        { 
-                            name: "📝 Obsah zprávy", 
-                            // YAML syntaxe pro barvy
-                            value: `\`\`\`yaml\n${msg}\n\`\`\`` 
+                            name: "Zpráva", 
+                            value: msg
                         }
                     ],
-                    // Footer odstraněn
                     timestamp: new Date()
                 }]
             };
