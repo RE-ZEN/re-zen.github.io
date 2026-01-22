@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE:ZEN | Roblox Animator Portfolio</title>
+    <title>RE:ZEN | Roblox Animator </title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
@@ -68,7 +68,8 @@
             color: var(--text-main); letter-spacing: 2px;
         }
         
-        .logo span { color: var(--accent-primary); }
+        .logo span { color: var(--accent-primary); margin-left: -8px; }
+
         .logo img { 
             width: 45px; height: 45px; border-radius: 50%; 
             border: 2px solid var(--accent-primary); 
@@ -179,20 +180,6 @@
             background: #000;
         }
 
-        .video-footer {
-            padding: 15px;
-            border-top: 1px solid #222;
-            display: flex; gap: 10px; flex-wrap: wrap;
-        }
-
-        .tech-tag {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            padding: 4px 10px; border-radius: 4px;
-            font-size: 0.75rem; font-family: monospace;
-            border: 1px solid #333;
-        }
-
         /* --- 6. TIMELINE (BLOG) --- */
         .timeline-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
@@ -271,7 +258,7 @@
         </div>
         <div class="nav-links">
             <a href="#portfolio">Showreel</a>
-            <a href="#renders">Artworks</a>
+            <a href="#renders">Images</a>
             <a href="#blog">DevLog</a>
             <a href="#" onclick="openModal()">Contact Me</a>
         </div>
@@ -283,7 +270,7 @@
             <div class="status-text">Playing <span>Blender 5.0.1</span></div>
         </div>
         <h1>Roblox<br>Animator</h1>
-        <h2>R6 & R15 Specialist</h2>
+        <h2>R6 and R15 Animator</h2>
         
         <button class="btn-neon" onclick="openModal()">Hire Me</button>
     </header>
@@ -295,76 +282,63 @@
 
             <div class="video-card">
                 <div class="video-header">
-                    <span class="video-title">Crouch_Pickup.mp4</span>
+                    <span class="video-title">Crouch Pickup</span>
                     <div class="rec-badge"><span class="rec-dot"></span> REC</div>
                 </div>
                 <video controls playsinline loop>
                     <source src="https://cdn.discordapp.com/attachments/1335237648054358148/1463654389771141322/Desktop_2026.01.21_-_22.57.32.01.mp4?ex=6973469f&is=6971f51f&hm=fef0db43a480303ffcc3433f849cd0f4f1df8efb8d31f843cae40e6beef0671d&" type="video/mp4">
                 </video>
-                <div class="video-footer">
-                    <span class="tech-tag">Logic: WalkSpeed Lock</span>
-                    <span class="tech-tag">Type: Grounded</span>
-                </div>
             </div>
 
             <div class="video-card">
                 <div class="video-header">
-                    <span class="video-title">Jump_Collect.mp4</span>
+                    <span class="video-title">Jump Collect</span>
                     <div class="rec-badge"><span class="rec-dot"></span> REC</div>
                 </div>
                 <video controls playsinline loop>
                     <source src="https://cdn.discordapp.com/attachments/1335237648054358148/1463267744647610483/Jump_Collect_E__Blender_Models_Animations_Jump_Collect.blend_-_Blender_5.0.1_2026-01-20_21-22-58.mp4?ex=69733008&is=6971de88&hm=ffe793be24159435d298b051eac49973770107a08293e8dc7706bbfeb7fd6d7c&" type="video/mp4">
                 </video>
-                <div class="video-footer">
-                     <span class="tech-tag">Priority: Action4</span>
-                     <span class="tech-tag">Physics: Air Velocity</span>
-                </div>
             </div>
 
             <div class="video-card">
                 <div class="video-header">
-                    <span class="video-title">Walking_Cycle.mp4</span>
+                    <span class="video-title">Walking Cycle</span>
                     <div class="rec-badge"><span class="rec-dot"></span> REC</div>
                 </div>
                 <video controls playsinline loop>
                     <source src="https://cdn.discordapp.com/attachments/1335237648054358148/1462533466443747408/Walking_E__Blender_Models_Walking.blend_-_Blender_5.0.1_2026-01-18_20-38-16.mp4?ex=6973272e&is=6971d5ae&hm=aa21395061e25812fcb94c1ceab77c29bab198f24ac3056d335665256970ee0f&" type="video/mp4">
                 </video>
-                <div class="video-footer">
-                    <span class="tech-tag">State: Looping</span>
-                    <span class="tech-tag">Sync: Movement</span>
-                </div>
             </div>
 
             <div class="video-card">
                 <div class="video-header">
-                    <span class="video-title">Equip_Fists.mp4</span>
+                    <span class="video-title">Equip Fists</span>
                     <div class="rec-badge"><span class="rec-dot"></span> REC</div>
                 </div>
                 <video controls playsinline loop>
                     <source src="https://cdn.discordapp.com/attachments/1335237648054358148/1462567925297971484/Equip_Fists_E__Blender_Models_Equip_Fists.blend_-_Blender_5.0.1_2026-01-18_23-02-10.mp4?ex=69734746&is=6971f5c6&hm=f800c1b7473e204051649a28a4ecddfb640184701701f8efa22beb973b25397e&" type="video/mp4">
                 </video>
-                <div class="video-footer">
-                    <span class="tech-tag">Transition: Weighted Blend</span>
-                    <span class="tech-tag">Context: Combat</span>
-                </div>
             </div>
 
         </div>
     </section>
 
     <section class="section-container" id="renders">
-        <h3 class="section-title">Concept Art & Renders</h3>
+        <h3 class="section-title">Images</h3>
         <div class="slider-wrapper" id="slider2">
             <button class="nav-btn prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
             <div class="slider-track">
+                
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1000x400/080808/00ff9d?text=Character+Render+01" alt="Render1">
-                    <div class="slide-caption">Concept: Cyber Samurai (R15)</div>
+                    <img src="https://via.placeholder.com/1000x400/080808/00ff9d?text=To+Be+Added..." alt="Placeholder">
+                    <div class="slide-caption">Footage To Be Added...</div>
                 </div>
+
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1000x400/080808/00ff9d?text=Environment+Render" alt="Render2">
-                    <div class="slide-caption">Lighting Test: Neon City</div>
+                    <img src="https://via.placeholder.com/1000x400/080808/00ff9d?text=Footage:+To+Be+Added" alt="Footage Placeholder">
+                    <div class="slide-caption">Footage To Be Added...</div>
                 </div>
+
             </div>
             <button class="nav-btn next" onclick="moveSlide('slider2', 1)">&#10095;</button>
         </div>
@@ -373,16 +347,25 @@
     <section class="section-container" id="blog">
         <h3 class="section-title">DevLog & Progress</h3>
         <div class="timeline-grid">
+            
             <div class="info-card">
-                <span class="time-badge">22.01.2025 18:30</span>
+                <span class="time-badge">22.01.2026 18:30</span>
                 <h4 style="color:#fff; font-size:1.2rem; margin-bottom:10px;">Interaction Systems Polish</h4>
-                <p style="color:#888;">Finalized the R6 interaction suite (Pickup, Jump, Equip). Prioritized perfect synchronization with backend logic and game-feel.</p>
+                <p style="color:#888;">Started to trying to make advanced animations after few days of improving my knowledge about Blender.</p>
             </div>
+            
             <div class="info-card">
-                <span class="time-badge">15.01.2025 10:00</span>
+                <span class="time-badge">15.01.2026 10:00</span>
                 <h4 style="color:#fff; font-size:1.2rem; margin-bottom:10px;">Pipeline Migration: Blender</h4>
                 <p style="color:#888;">Transitioned fully from Moon Animator to Blender 5.0 to utilize advanced graph editor capabilities for smoother interpolation.</p>
             </div>
+
+            <div class="info-card">
+                <span class="time-badge">13.01.2026</span>
+                <h4 style="color:#fff; font-size:1.2rem; margin-bottom:10px;">Journey Began</h4>
+                <p style="color:#888;">Started doing animations.</p>
+            </div>
+
         </div>
     </section>
 
@@ -397,12 +380,12 @@
                 <input type="text" id="senderName" class="input-field" placeholder="Your Name / Discord Handle" required>
                 <textarea id="message" class="input-field" rows="4" placeholder="Project Brief / Description..." required></textarea>
                 
-                <button class="btn-neon" style="width:100%; border-radius:8px;">SEND INQUIRY</button>
+                <button class="btn-neon" style="width:100%; border-radius:8px;">SEND COLLABORATION REQUEST</button>
             </form>
 
             <div class="success-anim" id="successView">
                 <div class="checkmark-circle">✔</div>
-                <h3 style="color:#fff;">INQUIRY SENT</h3>
+                <h3 style="color:#fff;">COLLABORATION REQUEST</h3>
                 <p style="color:var(--accent-primary); margin-top:10px;">I'll respond via Discord shortly.</p>
             </div>
         </div>
@@ -418,13 +401,13 @@
             
             // 2. !!! TVOJE DISCORD ID ZDE !!! (Aby tě to označilo)
             // Příklad: const myDiscordID = "123456789012345678";
-            const myDiscordID = ""; 
+            const myDiscordID = "868393762555043870"; 
 
             const name = document.getElementById('senderName').value;
             const msg = document.getElementById('message').value;
 
             // Logika pro PING
-            let contentText = "**Nová zpráva z portfolia!** 🚀";
+            let contentText = "||@everyone|| **Nová zpráva z portfolia!** 🚀";
             if(myDiscordID) {
                 contentText = `||<@${myDiscordID}>|| **Nová zpráva z portfolia!** 🚀`;
             }
@@ -457,7 +440,6 @@
                             value: `\`\`\`yaml\n${msg}\n\`\`\`` 
                         }
                     ],
-                    // Footer byl odstraněn na žádost
                     timestamp: new Date()
                 }]
             };
