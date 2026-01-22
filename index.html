@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Bot Dashboard</title>
+    <title>Bot Dashboard - Clean Design</title>
     <style>
-        /* --- ZÁKLADNÍ NASTAVENÍ A PROMĚNNÉ --- */
+        /* --- ZÁKLADNÍ NASTAVENÍ (Discord Colors) --- */
         :root {
-            --bg-primary: #313338; /* Discord Dark */
-            --bg-secondary: #2b2d31;
-            --bg-tertiary: #1e1f22;
+            --bg-primary: #313338; /* Hlavní tmavá */
+            --bg-secondary: #2b2d31; /* Karty/Panely */
+            --bg-tertiary: #1e1f22; /* Tmavší pozadí elementů */
             --accent-green: #23a559; /* Discord Green */
             --text-primary: #f2f3f5;
             --text-secondary: #b5bac1;
             --font-main: 'gg sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --lightning-color: rgba(35, 165, 89, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,42 +23,23 @@
             color: var(--text-primary);
             font-family: var(--font-main);
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* --- POZADÍ A EFEKTY (BLESKY) --- */
-        /* Sticky Header Background Effect */
-        .lightning-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(180deg, var(--lightning-color) 0%, transparent 100%);
-            z-index: 10;
-            pointer-events: none; /* Aby šlo klikat skrz */
-            filter: blur(20px);
-            opacity: 0.5;
-            animation: pulse-lightning 4s infinite;
-        }
-
-        @keyframes pulse-lightning {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.6; filter: blur(25px); }
-            100% { opacity: 0.3; }
-        }
-
-        /* --- NAVIGACE --- */
+        /* --- NAVIGACE (Sticky Header) --- */
         nav {
             position: sticky;
             top: 0;
-            background-color: rgba(30, 31, 34, 0.95);
-            backdrop-filter: blur(10px);
+            background-color: var(--bg-tertiary); /* Pevná barva bez průhlednosti pro čistší vzhled */
             padding: 15px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            z-index: 100;
-            border-bottom: 2px solid var(--accent-green);
+            z-index: 1000;
+            border-bottom: 2px solid #111;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .nav-left {
@@ -69,122 +49,131 @@
         }
 
         .logo-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Kulaté logo jako na Discordu */
             object-fit: cover;
             border: 2px solid var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
         }
 
         .nav-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: #fff;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px; /* ZVĚTŠENÁ MEZERA MEZI POLOŽKAMI */
+            gap: 30px;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.95rem;
             font-weight: 500;
-            transition: color 0.3s;
-            padding: 5px 10px; /* Přidán padding pro lepší klikatelnost */
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
             color: #fff;
         }
 
+        /* --- HLAVNÍ OBSAH --- */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
         /* --- DISCORD STATUS SEKCE --- */
-        .profile-container {
-            max-width: 800px;
-            margin: 100px auto 50px;
-            padding: 20px;
-            background: var(--bg-tertiary);
+        .profile-card {
+            background: var(--bg-tertiary); /* Tmavší karta */
             border-radius: 8px;
+            padding: 20px;
             display: flex;
             align-items: center;
             gap: 20px;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 50px;
+            border-left: 4px solid var(--accent-green); /* Zelený proužek vlevo */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .avatar-wrapper {
+        .avatar-container {
             position: relative;
         }
 
         .avatar {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background-color: #5865F2; /* Placeholder barva */
-            background-image: url('image_5778ed.png'); /* Tvoje logo jako avatar */
+            background-color: #5865F2;
+            background-image: url('image_5778ed.png'); /* Tvoje logo */
             background-size: cover;
+            border: 4px solid var(--bg-tertiary); /* Oddělení od pozadí */
         }
 
-        .status-indicator {
+        .status-dot {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 24px;
-            height: 24px;
+            bottom: 5px;
+            right: 5px;
+            width: 22px;
+            height: 22px;
             background-color: var(--accent-green);
             border: 4px solid var(--bg-tertiary);
             border-radius: 50%;
         }
 
-        .user-info h1 {
+        .user-details h1 {
             font-size: 1.5rem;
             margin-bottom: 5px;
+            color: #fff;
         }
 
-        .activity-text {
+        .activity {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .activity-bold {
-            font-weight: bold;
+        .activity strong {
             color: var(--text-primary);
         }
 
-        /* --- SLIDERY (VIDEA A OBRÁZKY) --- */
-        .slider-section {
-            max-width: 1000px;
-            margin: 0 auto 50px;
-            padding: 0 20px;
+        /* --- SLIDERY --- */
+        .section-header {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
         }
 
-        .section-title {
-            margin-bottom: 20px;
-            border-left: 5px solid var(--accent-green);
-            padding-left: 15px;
-            font-size: 1.5rem;
-        }
-
-        .slider-container {
+        .slider-wrapper {
             position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 10px;
             background: var(--bg-secondary);
-            height: 300px; /* Fixní výška slideru */
+            border-radius: 12px;
+            overflow: hidden;
+            height: 350px; /* Větší výška aby se to nenačmalo */
+            margin-bottom: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .slider-track {
             display: flex;
-            transition: transform 0.5s ease-in-out;
             height: 100%;
+            transition: transform 0.4s ease-in-out;
         }
 
         .slide {
             min-width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -201,300 +190,275 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             color: white;
             border: none;
-            padding: 10px 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 20px;
-            z-index: 5;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
         }
 
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
+        .slider-btn:hover { background: var(--accent-green); }
+        .prev { left: 15px; }
+        .next { right: 15px; }
 
-        /* --- TIMELINE (PRAGUE TIMEZONE) --- */
-        .timeline-section {
-            max-width: 800px;
-            margin: 0 auto 50px;
-            padding: 0 20px;
-        }
-
-        .timeline-item {
-            border-left: 2px solid var(--accent-green);
+        /* --- TIMELINE --- */
+        .timeline {
+            border-left: 2px solid #444;
+            margin-left: 10px;
             padding-left: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+        }
+
+        .timeline-event {
+            margin-bottom: 25px;
             position: relative;
         }
 
-        .timeline-item::before {
+        .timeline-event::before {
             content: '';
             position: absolute;
-            left: -6px;
-            top: 0;
+            left: -26px;
+            top: 5px;
             width: 10px;
             height: 10px;
             background: var(--accent-green);
             border-radius: 50%;
+            border: 2px solid var(--bg-primary);
         }
 
-        .time-tag {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+        .time-badge {
+            font-size: 0.75rem;
             background: var(--bg-secondary);
-            padding: 2px 8px;
+            padding: 4px 8px;
             border-radius: 4px;
+            color: var(--text-secondary);
             display: inline-block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-family: monospace;
         }
 
-        /* --- KONTAKTNÍ FORMULÁŘ --- */
+        /* --- KONTAKTNÍ TLAČÍTKO --- */
+        .cta-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
         .contact-btn {
-            display: block;
-            margin: 0 auto 50px;
-            padding: 15px 40px;
             background-color: var(--accent-green);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
+            transition: background-color 0.2s;
         }
 
         .contact-btn:hover {
             background-color: #1e8f4b;
-            transform: scale(1.05);
         }
 
-        /* Modal Overlay */
+        /* --- MODAL (Okno) --- */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
+            z-index: 2000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
+            background-color: rgba(0,0,0,0.85);
             align-items: center;
-            z-index: 1000;
+            justify-content: center;
         }
 
-        /* Modal Content + Animace otevření */
         .modal-content {
-            background: var(--bg-secondary);
+            background-color: var(--bg-primary);
             padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
             position: relative;
-            transform: scale(0.8);
-            opacity: 0;
-            animation: modalOpen 0.3s forwards;
-            border: 1px solid var(--accent-green);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
         }
 
-        @keyframes modalOpen {
-            to { transform: scale(1); opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .close-btn {
+        .close {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 15px;
+            right: 20px;
             font-size: 24px;
             cursor: pointer;
             color: var(--text-secondary);
         }
 
-        form { display: flex; flex-direction: column; gap: 15px; }
-
         input, textarea {
-            background: var(--bg-tertiary);
-            border: 1px solid #444;
+            width: 100%;
             padding: 10px;
+            margin-bottom: 15px;
+            background: var(--bg-tertiary);
+            border: 1px solid #222;
             color: white;
             border-radius: 4px;
-            font-family: var(--font-main);
+            font-family: inherit;
         }
 
         input:focus, textarea:focus {
-            outline: 2px solid var(--accent-green);
+            outline: none;
+            border-color: var(--accent-green);
         }
 
-        /* --- ANIMACE ODESLÁNÍ (FAJFKA) --- */
-        .success-animation {
-            display: none; /* Skryto defaultně */
+        /* Animace fajfky */
+        .success-wrapper {
+            display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 200px;
+            padding: 20px;
         }
-
-        .checkmark-circle {
-            width: 60px;
-            height: 60px;
+        .checkmark {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--accent-green);
             display: flex;
-            align-items: center;
             justify-content: center;
-            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        .checkmark-icon {
-            color: white;
+            align-items: center;
             font-size: 30px;
-            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
-        }
-
-        .success-text {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: var(--accent-green);
-        }
+        @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
 
     </style>
 </head>
 <body>
 
-    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"></audio>
-
-    <div class="lightning-header"></div>
+    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-simple-notification-alert-2699.mp3"></audio>
 
     <nav>
         <div class="nav-left">
-            <img src="image_5778ed.png" alt="Bot Logo" class="logo-img">
-            <span class="nav-title">My Bot Dashboard</span>
+            <img src="image_5778ed.png" alt="Logo" class="logo-img">
+            <span class="nav-title">Medusa Bot</span>
         </div>
         <div class="nav-links">
-            <a href="#">Domů</a>
-            <a href="#">Funkce</a>
-            <a href="#">Timeline</a>
-            <a href="#">Kontakt</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Commands</a>
+            <a href="#">Support</a>
         </div>
     </nav>
 
-    <div class="profile-container">
-        <div class="avatar-wrapper">
-            <div class="avatar"></div>
-            <div class="status-indicator"></div>
-        </div>
-        <div class="user-info">
-            <h1>Můj Super Bot #1234</h1>
-            <div class="activity-text">
-                Hraje hru <span class="activity-bold">Visual Studio Code</span>
+    <main>
+        <div class="profile-card">
+            <div class="avatar-container">
+                <div class="avatar"></div>
+                <div class="status-dot"></div>
             </div>
-        </div>
-    </div>
-
-    <section class="slider-section">
-        <h2 class="section-title">Galerie Projektů</h2>
-        <div class="slider-container" id="imgSlider">
-            <button class="slider-btn prev-btn" onclick="moveSlider('imgSlider', -1)">&#10094;</button>
-            <div class="slider-track">
-                <div class="slide"><img src="https://via.placeholder.com/800x400/1e1f22/23a559?text=Projekt+1" alt="1"></div>
-                <div class="slide"><img src="https://via.placeholder.com/800x400/1e1f22/23a559?text=Projekt+2" alt="2"></div>
-                <div class="slide"><img src="https://via.placeholder.com/800x400/1e1f22/23a559?text=Projekt+3" alt="3"></div>
-            </div>
-            <button class="slider-btn next-btn" onclick="moveSlider('imgSlider', 1)">&#10095;</button>
-        </div>
-    </section>
-
-    <section class="slider-section">
-        <h2 class="section-title">Video Ukázky</h2>
-        <div class="slider-container" id="vidSlider">
-            <button class="slider-btn prev-btn" onclick="moveSlider('vidSlider', -1)">&#10094;</button>
-            <div class="slider-track">
-                <div class="slide">
-                    <div style="color:white">Video 1 (Placeholder)</div>
-                </div>
-                <div class="slide">
-                     <div style="color:white">Video 2 (Placeholder)</div>
+            <div class="user-details">
+                <h1>Medusa Bot #0001</h1>
+                <div class="activity">
+                    <span>Hraje hru</span>
+                    <strong>Visual Studio Code</strong>
                 </div>
             </div>
-            <button class="slider-btn next-btn" onclick="moveSlider('vidSlider', 1)">&#10095;</button>
-        </div>
-    </section>
-
-    <section class="timeline-section">
-        <h2 class="section-title">Vývojová Timeline</h2>
-        
-        <div class="timeline-item">
-            <span class="time-tag">22.01.2025 14:00 (Europe/Prague)</span>
-            <h3>Update v2.0</h3>
-            <p>Přidána podpora pro slidery a vylepšené UI.</p>
         </div>
 
-        <div class="timeline-item">
-            <span class="time-tag">20.01.2025 09:30 (Europe/Prague)</span>
-            <h3>Změna Designu</h3>
-            <p>Implementace zeleného tématu a Discord statusu.</p>
+        <h3 class="section-header">Ukázky (Obrázky)</h3>
+        <div class="slider-wrapper" id="imgSlider">
+            <button class="slider-btn prev" onclick="moveSlider('imgSlider', -1)">&#10094;</button>
+            <div class="slider-track">
+                <div class="slide"><img src="https://via.placeholder.com/800x400/1e1f22/23a559?text=Preview+1" alt="1"></div>
+                <div class="slide"><img src="https://via.placeholder.com/800x400/1e1f22/23a559?text=Preview+2" alt="2"></div>
+            </div>
+            <button class="slider-btn next" onclick="moveSlider('imgSlider', 1)">&#10095;</button>
         </div>
-    </section>
 
-    <button class="contact-btn" onclick="openModal()">Kontaktovat Vývojáře</button>
+        <h3 class="section-header">Video Ukázky</h3>
+        <div class="slider-wrapper" id="vidSlider">
+            <button class="slider-btn prev" onclick="moveSlider('vidSlider', -1)">&#10094;</button>
+            <div class="slider-track">
+                <div class="slide">
+                    <div style="color:var(--text-secondary)">Zde bude Video 1</div>
+                </div>
+                <div class="slide">
+                    <div style="color:var(--text-secondary)">Zde bude Video 2</div>
+                </div>
+            </div>
+            <button class="slider-btn next" onclick="moveSlider('vidSlider', 1)">&#10095;</button>
+        </div>
 
-    <div class="modal" id="contactModal">
+        <h3 class="section-header">Changelog</h3>
+        <div class="timeline">
+            <div class="timeline-event">
+                <div class="time-badge">22.01.2025 15:45 (Europe/Prague)</div>
+                <h4>Update Designu</h4>
+                <p style="color:var(--text-secondary)">Návrat k čistému vzhledu a oprava sliderů.</p>
+            </div>
+            <div class="timeline-event">
+                <div class="time-badge">20.01.2025 10:00 (Europe/Prague)</div>
+                <h4>Initial Release</h4>
+                <p style="color:var(--text-secondary)">První verze bota spuštěna.</p>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <button class="contact-btn" onclick="openModal()">Kontaktovat podporu</button>
+        </div>
+    </main>
+
+    <div id="contactModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal()">&times;</span>
             
-            <form id="myForm" onsubmit="submitForm(event)">
-                <h2 style="margin-bottom: 10px;">Napiš mi</h2>
-                <input type="text" placeholder="Tvé jméno / Discord Tag" required>
-                <input type="email" placeholder="Tvůj Email" required>
-                <textarea rows="5" placeholder="Zpráva..." required></textarea>
-                <button type="submit" class="contact-btn" style="width:100%; margin:0;">Odeslat</button>
+            <form id="contactForm" onsubmit="submitForm(event)">
+                <h2 style="margin-bottom:20px; color:#fff;">Napiš nám</h2>
+                <input type="text" placeholder="Discord Username" required>
+                <textarea rows="4" placeholder="Popis problému..." required></textarea>
+                <button type="submit" class="contact-btn" style="width:100%">Odeslat</button>
             </form>
 
-            <div class="success-animation" id="successAnim">
-                <div class="checkmark-circle">
-                    <div class="checkmark-icon">✔</div>
-                </div>
-                <div class="success-text">Odesláno!</div>
+            <div class="success-wrapper" id="successMsg">
+                <div class="checkmark">✔</div>
+                <h3>Odesláno!</h3>
             </div>
-
         </div>
     </div>
 
     <script>
         // --- LOGIKA SLIDERŮ ---
         const sliders = {
-            'imgSlider': { index: 0, track: document.querySelector('#imgSlider .slider-track') },
-            'vidSlider': { index: 0, track: document.querySelector('#vidSlider .slider-track') }
+            'imgSlider': { idx: 0, el: document.querySelector('#imgSlider .slider-track') },
+            'vidSlider': { idx: 0, el: document.querySelector('#vidSlider .slider-track') }
         };
 
-        function moveSlider(id, direction) {
-            const slider = sliders[id];
-            const slideCount = slider.track.children.length;
-            
-            slider.index += direction;
-
-            // Zacyklení slideru
-            if (slider.index < 0) slider.index = slideCount - 1;
-            if (slider.index >= slideCount) slider.index = 0;
-
-            const offset = slider.index * -100;
-            slider.track.style.transform = `translateX(${offset}%)`;
+        function moveSlider(id, dir) {
+            const s = sliders[id];
+            const count = s.el.children.length;
+            s.idx = (s.idx + dir + count) % count; // Cyklování
+            s.el.style.transform = `translateX(-${s.idx * 100}%)`;
         }
 
-        // --- LOGIKA MODALU A FORMULÁŘE ---
+        // --- MODAL & AUDIO ---
         const modal = document.getElementById('contactModal');
-        const form = document.getElementById('myForm');
-        const successAnim = document.getElementById('successAnim');
-        const audio = document.getElementById('successSound');
+        const form = document.getElementById('contactForm');
+        const success = document.getElementById('successMsg');
+        const sound = document.getElementById('successSound');
 
         function openModal() {
             modal.style.display = 'flex';
-            // Reset stavu při otevření
-            form.style.display = 'flex';
-            successAnim.style.display = 'none';
+            form.style.display = 'block';
+            success.style.display = 'none';
             form.reset();
         }
 
@@ -502,32 +466,19 @@
             modal.style.display = 'none';
         }
 
-        // Kliknutí mimo okno zavře modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
+        window.onclick = e => { if(e.target == modal) closeModal(); }
 
         function submitForm(e) {
-            e.preventDefault(); // Zabrání refreshi stránky
-
-            // 1. Skrýt formulář
+            e.preventDefault();
             form.style.display = 'none';
+            success.style.display = 'flex';
             
-            // 2. Zobrazit animaci
-            successAnim.style.display = 'flex';
-            
-            // 3. Přehrát zvuk
-            audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio play blocked by browser policy"));
+            // Přehrání zvuku
+            sound.volume = 0.5;
+            sound.play().catch(err => console.log('Audio error:', err));
 
-            // 4. Po chvíli zavřít okno (volitelné)
-            setTimeout(() => {
-                closeModal();
-            }, 2500);
+            setTimeout(closeModal, 2000);
         }
     </script>
-
 </body>
 </html>
