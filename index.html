@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- COLORS (Roblox Green) --- */
+        /* --- COLORS --- */
         :root {
             --bg: #050505;
             --card-bg: #111111;
+            --sidebar-bg: #0f0f0f;
             --discord-bg: #232428;
-            --discord-header: #111214;
             --accent-green: #00b06f; 
             --text-muted: #b9bbbe;
         }
@@ -30,28 +30,73 @@
             flex-direction: column;
             align-items: center;
             background-image: radial-gradient(circle at 50% 0%, #1a2b20 0%, #000 70%);
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        .main-container { width: 100%; max-width: 700px; padding: 40px 20px; text-align: center; }
+        .main-container { width: 100%; max-width: 700px; padding: 40px 20px; text-align: center; transition: 0.3s; }
 
-        /* HEADER ANIMATION */
+        /* --- TOP RIGHT MENU ICON --- */
+        .menu-btn {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+            z-index: 2000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+        .menu-btn:hover { background: var(--accent-green); border-color: var(--accent-green); }
+
+        /* --- SIDEBAR (DRAWER) --- */
+        .sidebar {
+            position: fixed; top: 0; right: 0;
+            width: 320px; height: 100%;
+            background: var(--sidebar-bg);
+            border-left: 1px solid #222;
+            z-index: 1999;
+            transform: translateX(100%); /* Hidden by default */
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 80px 30px 30px 30px; /* Padding top for close btn */
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; gap: 30px;
+        }
+        .sidebar.active { transform: translateX(0); }
+        
+        .sb-section h3 { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .sb-text { color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 10px; }
+        
+        .contact-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: #1a1a1a; padding: 12px; border-radius: 6px;
+            color: white; text-decoration: none; margin-bottom: 10px;
+            border: 1px solid #333; transition: 0.2s;
+        }
+        .contact-btn:hover { border-color: var(--accent-green); background: #222; }
+        .btn-paypal { background: #003087; border-color: #003087; }
+        .btn-paypal:hover { background: #0045c2; }
+
+        /* --- HEADER --- */
         @keyframes greenPulse {
             0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-green); }
-            50% { text-shadow: 0 0 10px #fff, 0 0 20px var(--accent-green), 0 0 30px var(--accent-green); }
-            100% { text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-green); }
+            100% { text-shadow: 0 0 5px #fff, 0 0 15px var(--accent-green); }
         }
+        .title-area { margin-bottom: 40px; }
         h1 { font-size: 3rem; font-weight: 900; letter-spacing: -2px; color: white; animation: greenPulse 3s infinite alternate ease-in-out; }
         .subtitle { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: bold; margin-top: 10px; }
 
-        /* DISCORD CARD */
+        /* --- DISCORD CARD --- */
         .discord-card {
             background-color: var(--discord-bg);
-            border-radius: 12px;
-            width: 100%; max-width: 450px; margin: 0 auto 50px auto;
+            border-radius: 12px; width: 100%; max-width: 450px; margin: 0 auto 50px auto;
             text-align: left; border: 1px solid #333; overflow: hidden; position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .dc-banner { height: 120px; background-color: var(--discord-header); background-size: cover; background-position: center; }
+        .dc-banner { height: 120px; background-color: #111; background-size: cover; background-position: center; }
         .dc-header { padding: 0 20px; position: relative; margin-bottom: 15px; }
         .dc-avatar-wrapper { width: 90px; height: 90px; border-radius: 50%; background: var(--discord-bg); padding: 6px; margin-top: -50px; position: relative; }
         .dc-avatar { width: 100%; height: 100%; border-radius: 50%; background-size: cover; }
@@ -69,22 +114,15 @@
         .act-info h4 { font-size: 0.85rem; font-weight: 700; color: white; }
         .act-info p { font-size: 0.75rem; color: var(--text-muted); }
         .dc-btn { display: block; background-color: var(--accent-green); color: white; text-align: center; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: 600; margin: 15px; transition: 0.2s; }
-        .dc-btn:hover { background-color: #008a57; }
 
-        /* PORTFOLIO GRID */
-        .area-title { text-align: left; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent-green); text-transform: uppercase; }
+        /* --- PORTFOLIO GRIDS --- */
+        .area-title { text-align: left; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent-green); text-transform: uppercase; margin-top: 40px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
         .card { background: #0a0a0a; border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: 0.3s; cursor: pointer; position: relative; }
         .card:hover { border-color: var(--accent-green); transform: translateY(-3px); }
-        
-        /* Zoom icon overlay */
-        .card::after {
-            content: '\f00e'; /* FontAwesome search-plus */
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 2rem; color: white; opacity: 0; transition: 0.3s; pointer-events: none;
-            text-shadow: 0 0 10px black;
-        }
+        /* Zoom Icon */
+        .card::after { content: '\f00e'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; color: white; opacity: 0; transition: 0.3s; pointer-events: none; text-shadow: 0 0 10px black; }
         .card:hover::after { opacity: 1; }
         .card:hover .thumb-video, .card:hover .thumb { filter: brightness(0.5); }
 
@@ -93,7 +131,7 @@
         .info h3 { font-size: 1rem; margin-bottom: 5px; }
         .info p { font-size: 0.8rem; color: #888; }
 
-        /* BLOG STYLES */
+        /* --- BLOG --- */
         #blog-section { margin-top: 60px; }
         .blog-post { background: var(--card-bg); border: 1px solid #222; border-radius: 8px; padding: 20px; margin-bottom: 30px; text-align: left; }
         .blog-date { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-bottom: 5px; display: block; }
@@ -101,29 +139,51 @@
         .blog-text { color: #ccc; line-height: 1.6; font-size: 0.95rem; white-space: pre-wrap; margin-bottom: 15px; }
         .blog-media { width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid #333; max-height: 400px; object-fit: cover; }
 
-        /* --- LIGHTBOX (ZOOM MODAL) --- */
-        .lightbox {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px);
-        }
+        /* --- LIGHTBOX --- */
+        .lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .lightbox-content { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(0, 176, 111, 0.5); border: 2px solid #222; }
-        .lightbox-close {
-            position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .lightbox-close:hover { color: var(--accent-green); }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
 
         footer { margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <div id="lightbox-container" style="display: flex; justify-content: center; width: 100%;">
-            </div>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
     </div>
 
-    <div class="main-container">
+    <div class="sidebar" id="sidebar">
+        <div class="sb-section">
+            <h3>SUPPORT</h3>
+            <p class="sb-text">If you like my animations, support is appreciated!</p>
+            <a href="#" target="_blank" class="contact-btn btn-paypal" id="link-paypal">
+                <i class="fab fa-paypal"></i> Donate via PayPal
+            </a>
+        </div>
+
+        <div class="sb-section">
+            <h3>CONTACTS</h3>
+            <a href="#" class="contact-btn" id="link-discord">
+                <i class="fab fa-discord"></i> Discord Server
+            </a>
+            <a href="#" class="contact-btn" id="link-email">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+        </div>
+
+        <div class="sb-section">
+            <h3>ABOUT ME</h3>
+            <p class="sb-text" id="sb-about-text">Loading...</p>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div id="lightbox-container" style="display: flex; justify-content: center; width: 100%;"></div>
+    </div>
+
+    <div class="main-container" id="main-content">
         <div class="title-area">
             <h1 id="page-title">RE:ZEN</h1>
             <p class="subtitle" id="page-role">BEGINNER ROBLOX ANIMATOR</p>
@@ -138,41 +198,35 @@
                 </div>
             </div>
             <div class="dc-info">
-                <div class="dc-username">
-                    <span id="dc-username">Loading...</span>
-                </div>
+                <div class="dc-username"><span id="dc-username">Loading...</span></div>
                 <div class="dc-badges">
                     <span class="dc-badge badge-roblox"><i class="fas fa-cube"></i> Roblox Dev</span>
                     <span class="dc-badge"><i class="fas fa-video"></i> Animator</span>
                 </div>
             </div>
             <div class="dc-body">
-                <div class="section-header">ABOUT ME & MY JOURNEY</div>
+                <div class="section-header">ABOUT ME</div>
                 <div class="dc-text" id="dc-bio">...</div>
-
-                <div class="section-header">CURRENTLY PLAYING</div>
-                <div id="activity-box">
-                    <div class="dc-activity">
-                        <div class="act-img" style="background: #2f3136; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-gamepad" style="color: #555;"></i>
-                        </div>
-                        <div class="act-info"><h4>Loading Discord...</h4></div>
-                    </div>
-                </div>
+                <div class="section-header">ACTIVITY</div>
+                <div id="activity-box"></div>
             </div>
             <a href="#" class="dc-btn" id="dc-btn-link" target="_blank">Add on Discord</a>
         </div>
 
         <div class="portfolio-area">
-            <h2 class="area-title">Showcase (Click to Expand)</h2>
-            <div class="grid" id="projects-grid"></div>
+            <h2 class="area-title">Videos (Click to Expand)</h2>
+            <div class="grid" id="video-grid"></div>
+        </div>
+
+        <div class="portfolio-area">
+            <h2 class="area-title">Images / Renders</h2>
+            <div class="grid" id="image-grid"></div>
         </div>
 
         <div id="blog-section">
             <h2 class="area-title">Dev Blog & Updates</h2>
             <div id="blog-container"></div>
         </div>
-
     </div>
 
     <footer><p>© 2026 RE:ZEN | All rights reserved</p></footer>
@@ -181,36 +235,57 @@
         const config = {
             discordID: '868393762555043870',
 
-            // Header Texts
+            // --- PAGE TEXTS ---
             pageTitle: "RE:ZEN",
             role: "< BEGINNER ROBLOX ANIMATOR >",
             
-            // Bio ("About Me")
-            bio: "Hi! I'm new to Roblox animation and development.\nCurrently learning Moon Animator & Blender basics.\nDocumenting my progress here.",
-            
+            // --- MAIN BIO (Discord Card) ---
+            bio: "Hi! I'm new to Roblox animation.\nLearning Moon Animator & Blender.\nDocumenting my progress.",
+
+            // --- LINKS & CONTACTS (Sidebar) ---
             discordLink: "https://discord.com/users/868393762555043870", 
+            paypalLink: "https://paypal.me/tvujprofil", // ZMĚŇ NA TVŮJ PAYPAL!
+            emailLink: "mailto:contact@rezen.com",     // ZMĚŇ NA TVŮJ EMAIL!
+            
+            // --- SIDEBAR "ABOUT ME" (Longer text) ---
+            aboutSidebar: "I am a passionate beginner animator focusing on Roblox R6/R15 rigs. My goal is to master combat animations and smooth easing styles.",
+
             bannerColor: "#00b06f",
 
-            // 1. PROJECTS (Clickable Videos)
-            projects: [
+            // 1. VIDEOS (Only .mp4 / .webm)
+            videos: [
                 {
                     title: "First Walk Cycle",
-                    desc: "Learning basics of R6 movement.",
+                    desc: "Learning R6 movement.",
                     media: "https://cdn.discordapp.com/attachments/1335237648054358148/1462533466443747408/Walking_E__Blender_Models_Walking.blend_-_Blender_5.0.1_2026-01-18_20-38-16.mp4?ex=69727e6e&is=69712cee&hm=b431d8a39413b25c8542e3849df0a6721dd92be5033ecd12c6c9b44ca83b4f5c&" 
                 },
                 {
                     title: "Crouch & Collect",
-                    desc: "Trying out easing styles in Blender.",
+                    desc: "Blender easing test.",
                     media: "https://cdn.discordapp.com/attachments/1335237648054358148/1463654389771141322/Desktop_2026.01.21_-_22.57.32.01.mp4?ex=69729ddf&is=69714c5f&hm=2e0abfb5806315a5a0e94ce66508f6a173dafa4a3103e664d933e527cd884bae&"
                 },
                 {
                     title: "Jump Animation",
-                    desc: "Following a tutorial to learn new features.",
+                    desc: "New mechanics learned.",
                     media: "https://cdn.discordapp.com/attachments/1335237648054358148/1463267744647610483/Jump_Collect_E__Blender_Models_Animations_Jump_Collect.blend_-_Blender_5.0.1_2026-01-20_21-22-58.mp4?ex=69728748&is=697135c8&hm=876687e0481ad6501b6f1abc49432c2451ecb4a1e5ae4be06e77a5df977bcfe4&"
                 }
             ],
 
-            // 2. BLOG (Articles in English)
+            // 2. IMAGES (Only .png / .jpg / .gif)
+            images: [
+                {
+                    title: "Render Test",
+                    desc: "Lighting experiment in Blender.",
+                    media: "https://placehold.co/600x400/111/FFF?text=Render+Example"
+                },
+                {
+                    title: "Character Model",
+                    desc: "My main avatar rig.",
+                    media: "https://placehold.co/600x400/222/FFF?text=Rig+Showcase"
+                }
+            ],
+
+            // 3. BLOG
             blogPosts: [
                 {
                     date: "Jan 22, 2026",
@@ -222,118 +297,24 @@
         };
 
         // =======================================================
-        // ⛔ SYSTEM CODE (DO NOT EDIT)
+        // ⛔ SYSTEM LOGIC
         // =======================================================
 
-        // Apply Text Config
+        // Apply Config
         document.getElementById('page-title').innerText = config.pageTitle;
         document.getElementById('page-role').innerText = config.role;
         document.getElementById('dc-bio').innerText = config.bio;
         document.getElementById('dc-btn-link').href = config.discordLink;
+        
+        // Sidebar Content
+        document.getElementById('link-paypal').href = config.paypalLink;
+        document.getElementById('link-email').href = config.emailLink;
+        document.getElementById('link-discord').href = config.discordLink;
+        document.getElementById('sb-about-text').innerText = config.aboutSidebar;
+
         const bannerEl = document.getElementById('dc-banner');
         if(config.bannerImage) { bannerEl.style.backgroundImage = `url('${config.bannerImage}')`; } else { bannerEl.style.backgroundColor = config.bannerColor; }
 
-        // --- Lightbox Logic ---
-        function openLightbox(mediaSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const container = document.getElementById('lightbox-container');
-            lightbox.style.display = 'flex';
-            
-            // Check if video or image
-            if(mediaSrc.includes('.mp4') || mediaSrc.includes('.webm')) {
-                container.innerHTML = `<video src="${mediaSrc}" controls autoplay class="lightbox-content"></video>`;
-            } else {
-                container.innerHTML = `<img src="${mediaSrc}" class="lightbox-content">`;
-            }
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-            document.getElementById('lightbox-container').innerHTML = ''; // Stop video playback
-        }
-
-        // Close on click outside
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this) closeLightbox();
-        });
-
-        // Generate Portfolio
-        const grid = document.getElementById('projects-grid');
-        config.projects.forEach(p => {
-            let mediaElement = "";
-            if (p.media.includes('.mp4') || p.media.includes('.webm')) {
-                mediaElement = `<video src="${p.media}" autoplay loop muted playsinline class="thumb-video"></video>`;
-            } else {
-                mediaElement = `<div class="thumb" style="background-image: url('${p.media}');"></div>`;
-            }
-
-            // Added onclick event to open lightbox
-            grid.innerHTML += `
-                <div class="card" onclick="openLightbox('${p.media}')">
-                    ${mediaElement}
-                    <div class="info">
-                        <h3>${p.title}</h3>
-                        <p>${p.desc}</p>
-                    </div>
-                </div>
-            `;
-        });
-
-        // Generate Blog
-        const blogContainer = document.getElementById('blog-container');
-        if (config.blogPosts && config.blogPosts.length > 0) {
-            config.blogPosts.forEach(post => {
-                let mediaHTML = "";
-                if(post.media) {
-                    if (post.media.includes('.mp4') || post.media.includes('.webm')) {
-                        mediaHTML = `<video src="${post.media}" controls class="blog-media"></video>`;
-                    } else {
-                        mediaHTML = `<img src="${post.media}" class="blog-media">`;
-                    }
-                }
-                blogContainer.innerHTML += `
-                    <div class="blog-post">
-                        <span class="blog-date">${post.date}</span>
-                        <div class="blog-title">${post.title}</div>
-                        <div class="blog-text">${post.text}</div>
-                        ${mediaHTML}
-                    </div>
-                `;
-            });
-        }
-
-        // Lanyard API
-        async function loadDiscord() {
-            try {
-                const res = await fetch(`https://api.lanyard.rest/v1/users/${config.discordID}`);
-                const json = await res.json();
-                if(!json.success) return;
-                const data = json.data;
-                document.getElementById('dc-username').innerText = data.discord_user.username;
-                const av = document.getElementById('dc-avatar');
-                av.src = data.discord_user.avatar ? `https://cdn.discordapp.com/avatars/${config.discordID}/${data.discord_user.avatar}.png` : "https://cdn.discordapp.com/embed/avatars/0.png";
-                
-                const colors = { online: '#3ba55c', idle: '#faa61a', dnd: '#ed4245', offline: '#747f8d' };
-                document.getElementById('dc-status').style.backgroundColor = colors[data.discord_status] || colors.offline;
-
-                const actBox = document.getElementById('activity-box');
-                const activities = data.activities.filter(a => a.type !== 4);
-                if(activities.length > 0) {
-                    const act = activities[0];
-                    let iconUrl = "";
-                    if(act.assets && act.assets.large_image) {
-                        iconUrl = act.assets.large_image.startsWith("mp:") ? `https://media.discordapp.net/${act.assets.large_image.replace("mp:", "")}` : `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
-                    } else if(act.id === "spotify:1") {
-                         iconUrl = act.assets.large_image ? `https://i.scdn.co/image/${act.assets.large_image.replace("spotify:", "")}` : "";
-                    }
-                    actBox.innerHTML = `<div class="dc-activity"><img src="${iconUrl}" class="act-img" onerror="this.style.display='none'"><div class="act-info"><h4>${act.name}</h4><p>${act.details || act.state || "Playing..."}</p></div></div>`;
-                } else {
-                    const custom = data.activities.find(a => a.type === 4);
-                    actBox.innerHTML = `<div class="dc-activity"><div class="act-info"><h4>${custom ? "Custom Status" : "Just Chilling"}</h4><p>${custom ? (custom.state || "") : "No game detected"}</p></div></div>`;
-                }
-            } catch(e) {}
-        }
-        loadDiscord(); setInterval(loadDiscord, 10000);
-    </script>
-</body>
-</html>
+        // --- MENU LOGIC ---
+        function toggleMenu() {
+            const sb = document.getElementById('sidebar');
