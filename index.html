@@ -63,18 +63,31 @@
         }
 
         .logo {
-            display: flex; align-items: center; gap: 12px;
+            display: flex; align-items: center;
             font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;
             color: var(--text-main); letter-spacing: 2px;
         }
         
-        .logo span { color: var(--accent-primary); margin-left: -8px; }
+        .logo span.accent { color: var(--accent-primary); }
 
-        .logo img { 
-            width: 45px; height: 45px; border-radius: 50%; 
-            border: 2px solid var(--accent-primary); 
+        /* ✅ NEW: Roblox Badge in Nav */
+        .roblox-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 4px 8px;
+            margin-left: 12px;
+            height: 28px;
             box-shadow: 0 0 10px var(--accent-glow);
-            object-fit: cover;
+        }
+
+        .roblox-badge img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
         }
 
         .nav-links { display: flex; gap: 30px; }
@@ -172,7 +185,7 @@
 
         video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
 
-        /* --- 6. LOGOS SECTION (NEW) --- */
+        /* --- 6. LOGOS SECTION --- */
         .logo-grid {
             display: flex;
             justify-content: center;
@@ -279,8 +292,10 @@
 
     <nav>
         <div class="logo">
-            <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-8B55070087790D7824888062010C2404-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Logo">
-            RE:<span>ZEN</span>
+            RE:<span class="accent">ZEN</span>
+            <div class="roblox-badge">
+                <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/roblox_logo_icon_168856.png" alt="Roblox">
+            </div>
         </div>
         <div class="nav-links">
             <a href="#portfolio">Showreel</a>
@@ -295,7 +310,7 @@
             <div class="dot"></div>
             <div class="status-text">Playing <span>Blender 5.0.1</span></div>
         </div>
-        <h1>RE:ZEN</h1>
+        <h1>Roblox<br>Animator</h1>
         <h2>R6 and R15 Animator</h2>
         
         <button class="btn-neon" onclick="openModal()">Hire Me</button>
@@ -345,15 +360,11 @@
     </section>
 
     <section class="section-container" id="logos">
-        
         <div class="logo-grid">
             <div class="logo-item">
                 <img src="https://images-ext-1.discordapp.net/external/Bts8s8YfClENtE_mNCDfZ5wUWSilbHmJ9F8xPopNOG4/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/868393762555043870/362c59f0bd0fd33b9ed064bce1c7b93d.png?format=webp&quality=lossless" alt="My Logo">
             </div>
-            <div class="logo-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Roblox_Logo_2022.svg/1200px-Roblox_Logo_2022.svg.png" alt="Silver Roblox Logo">
-            </div>
-            </div>
+        </div>
     </section>
 
     <section class="section-container" id="blog">
