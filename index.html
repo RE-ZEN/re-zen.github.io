@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- NASTAVENÍ BAREV A VZHLEDU --- */
+        /* --- NASTAVENÍ BAREV --- */
         :root {
             --bg: #050505;
             --card-bg: #111111;
@@ -33,48 +33,27 @@
             overflow-x: hidden;
         }
 
-        /* --- HLAVNÍ KONTEJNER --- */
-        .main-container { 
-            width: 100%; 
-            max-width: 700px; 
-            padding: 40px 20px; 
-            text-align: center; 
-            transition: 0.3s; 
-        }
+        .main-container { width: 100%; max-width: 700px; padding: 40px 20px; text-align: center; transition: 0.3s; }
 
-        /* --- MENU TLAČÍTKO (Vpravo nahoře) --- */
+        /* --- MENU TLAČÍTKO --- */
         .menu-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 2000;
-            width: 50px; height: 50px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid #333;
-            border-radius: 50%;
+            position: fixed; top: 20px; right: 20px; z-index: 2000;
+            width: 50px; height: 50px; background: rgba(0,0,0,0.6);
+            border: 1px solid #333; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            color: white;
+            cursor: pointer; font-size: 1.5rem; transition: 0.3s; color: white;
         }
         .menu-btn:hover { background: var(--accent-green); border-color: var(--accent-green); }
 
-        /* --- BOČNÍ PANEL (SIDEBAR) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
-            position: fixed; top: 0; right: 0;
-            width: 300px; height: 100%;
-            background: var(--sidebar-bg);
-            border-left: 1px solid #222;
-            z-index: 1999;
-            transform: translateX(100%); /* Schované */
-            transition: transform 0.4s ease;
-            padding: 90px 30px 30px 30px;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; gap: 30px;
-            text-align: left;
+            position: fixed; top: 0; right: 0; width: 300px; height: 100%;
+            background: var(--sidebar-bg); border-left: 1px solid #222;
+            z-index: 1999; transform: translateX(100%); transition: transform 0.4s ease;
+            padding: 90px 30px 30px 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; gap: 30px; text-align: left;
         }
-        .sidebar.active { transform: translateX(0); } /* Zobrazené */
+        .sidebar.active { transform: translateX(0); }
         
         .sb-section h3 { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 5px; }
         .sb-text { color: #ccc; font-size: 0.9rem; line-height: 1.6; }
@@ -83,13 +62,15 @@
             display: flex; align-items: center; gap: 10px;
             background: #1a1a1a; padding: 12px; border-radius: 6px;
             color: white; text-decoration: none; margin-bottom: 10px;
-            border: 1px solid #333; transition: 0.2s; font-size: 0.9rem; font-weight: 600;
+            border: 1px solid #333; transition: 0.2s; font-size: 0.9rem; font-weight: 600; cursor: pointer;
         }
         .contact-btn:hover { border-color: var(--accent-green); background: #222; }
         .btn-paypal { background: #003087; border-color: #003087; }
         .btn-paypal:hover { background: #0045c2; }
+        .btn-collab { border-color: var(--accent-green); color: var(--accent-green); }
+        .btn-collab:hover { background: rgba(0, 176, 111, 0.1); }
 
-        /* --- NADPIS S ANIMACÍ --- */
+        /* --- HEADER --- */
         @keyframes greenPulse {
             0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-green); }
             100% { text-shadow: 0 0 5px #fff, 0 0 15px var(--accent-green); }
@@ -98,12 +79,10 @@
         h1 { font-size: 3rem; font-weight: 900; letter-spacing: -2px; color: white; animation: greenPulse 3s infinite alternate ease-in-out; }
         .subtitle { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: bold; margin-top: 10px; }
 
-        /* --- DISCORD KARTA --- */
+        /* --- DISCORD CARD --- */
         .discord-card {
-            background-color: var(--discord-bg);
-            border-radius: 12px; width: 100%; max-width: 450px; margin: 0 auto 50px auto;
-            text-align: left; border: 1px solid #333; overflow: hidden; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background-color: var(--discord-bg); border-radius: 12px; width: 100%; max-width: 450px; margin: 0 auto 50px auto;
+            text-align: left; border: 1px solid #333; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .dc-banner { height: 120px; background-color: #111; background-size: cover; background-position: center; }
         .dc-header { padding: 0 20px; position: relative; margin-bottom: 15px; }
@@ -112,9 +91,14 @@
         .dc-status-indicator { width: 20px; height: 20px; border-radius: 50%; background: gray; position: absolute; bottom: 5px; right: 5px; border: 4px solid var(--discord-bg); }
         .dc-info { background-color: #111214; margin: 15px; padding: 15px; border-radius: 8px; }
         .dc-username { font-size: 1.3rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
+        
         .dc-badges { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
-        .dc-badge { background: #333; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; color: #eee; font-family: monospace; display: flex; align-items: center; gap: 5px; }
-        .badge-roblox { background: rgba(0, 176, 111, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+        .dc-badge { background: #333; padding: 4px 6px; border-radius: 4px; font-size: 0.8rem; color: #eee; display: flex; align-items: center; justify-content: center; }
+        .badge-roblox { background: rgba(0, 176, 111, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 8px; font-size: 0.75rem; font-family: monospace;}
+        .badge-nitro { color: #f47fff; }
+        .badge-hype { color: #f1c40f; } 
+        .badge-boost { color: #ff73fa; }
+
         .dc-body { padding: 0 15px 20px 15px; }
         .section-header { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; margin-top: 15px; text-transform: uppercase; }
         .dc-text { font-size: 0.9rem; color: #dcddde; line-height: 1.4; white-space: pre-wrap; }
@@ -124,22 +108,14 @@
         .act-info p { font-size: 0.75rem; color: var(--text-muted); }
         .dc-btn { display: block; background-color: var(--accent-green); color: white; text-align: center; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: 600; margin: 15px; transition: 0.2s; }
 
-        /* --- GRIDY (Videa a Obrázky) --- */
+        /* --- GRID --- */
         .area-title { text-align: left; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent-green); text-transform: uppercase; margin-top: 40px; font-weight: 800; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        
         .card { background: #0a0a0a; border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: 0.3s; cursor: pointer; position: relative; }
         .card:hover { border-color: var(--accent-green); transform: translateY(-3px); }
-        
-        /* Ikona lupy při najetí */
-        .card::after { 
-            content: '\f00e'; font-family: "Font Awesome 6 Free"; font-weight: 900; 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            font-size: 2rem; color: white; opacity: 0; transition: 0.3s; pointer-events: none; text-shadow: 0 0 10px black; 
-        }
+        .card::after { content: '\f00e'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; color: white; opacity: 0; transition: 0.3s; pointer-events: none; text-shadow: 0 0 10px black; }
         .card:hover::after { opacity: 1; }
         .card:hover .thumb-video, .card:hover .thumb { filter: brightness(0.4); }
-
         .thumb, .thumb-video { width: 100%; height: 160px; object-fit: cover; display: block; background: #151515; background-size: cover; background-position: center; transition: 0.3s; }
         .info { padding: 15px; text-align: left; }
         .info h3 { font-size: 1rem; margin-bottom: 5px; }
@@ -153,10 +129,19 @@
         .blog-text { color: #ccc; line-height: 1.6; font-size: 0.95rem; white-space: pre-wrap; margin-bottom: 15px; }
         .blog-media { width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid #333; max-height: 400px; object-fit: cover; }
 
-        /* --- LIGHTBOX (Zvětšovací okno) --- */
+        /* --- LIGHTBOX & FORM MODAL --- */
         .lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .lightbox-content { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(0, 176, 111, 0.5); border: 2px solid #222; }
         .lightbox-close { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+        /* FORMULÁŘ */
+        .form-container { background: #111; padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0, 176, 111, 0.3); text-align: left; }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; font-size: 0.8rem; color: #aaa; }
+        .form-input { width: 100%; padding: 10px; background: #222; border: 1px solid #333; color: white; border-radius: 5px; font-family: 'Inter', sans-serif; }
+        .form-input:focus { outline: none; border-color: var(--accent-green); }
+        .form-btn { width: 100%; padding: 10px; background: var(--accent-green); border: none; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .form-btn:hover { background: #008a57; }
 
         footer { margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; }
     </style>
@@ -169,20 +154,18 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sb-section">
+            <h3>COLLABORATION</h3>
+            <p class="sb-text">Do you have an idea? Let's work together!</p>
+            <div class="contact-btn btn-collab" onclick="openForm()">
+                <i class="fas fa-handshake"></i> Request Collab
+            </div>
+        </div>
+
+        <div class="sb-section">
             <h3>SUPPORT</h3>
             <p class="sb-text">Do you like my work? Support is appreciated!</p>
             <a href="#" target="_blank" class="contact-btn btn-paypal" id="link-paypal">
                 <i class="fab fa-paypal"></i> Donate via PayPal
-            </a>
-        </div>
-
-        <div class="sb-section">
-            <h3>CONTACTS</h3>
-            <a href="#" class="contact-btn" id="link-discord-sb">
-                <i class="fab fa-discord"></i> Discord Server
-            </a>
-            <a href="#" class="contact-btn" id="link-email">
-                <i class="fas fa-envelope"></i> Email Me
             </a>
         </div>
 
@@ -195,6 +178,35 @@
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div id="lightbox-container" style="display: flex; justify-content: center; width: 100%;"></div>
+    </div>
+
+    <div id="form-modal" class="lightbox">
+        <span class="lightbox-close" onclick="closeForm()">&times;</span>
+        <div class="form-container">
+            <h2 style="color:white; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;">Collaboration Request</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Discord Name</label>
+                <input type="text" id="fname" class="form-input" placeholder="User#1234">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Project Type</label>
+                <select id="ftype" class="form-input">
+                    <option>Roblox Animation</option>
+                    <option>Game Development</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Message / Idea</label>
+                <textarea id="fmsg" class="form-input" rows="4" placeholder="Describe your idea..."></textarea>
+            </div>
+
+            <button class="form-btn" onclick="sendToDiscord()">SEND REQUEST</button>
+            <p id="form-status" style="margin-top:10px; font-size:0.8rem; color:#aaa;"></p>
+        </div>
     </div>
 
     <div class="main-container">
@@ -213,9 +225,12 @@
             </div>
             <div class="dc-info">
                 <div class="dc-username"><span id="dc-username">Loading...</span></div>
+                
                 <div class="dc-badges">
                     <span class="dc-badge badge-roblox"><i class="fas fa-cube"></i> Roblox Dev</span>
-                    <span class="dc-badge">Animator</span>
+                    <span class="dc-badge badge-nitro" title="Nitro"><i class="fas fa-bolt"></i></span>
+                    <span class="dc-badge badge-boost" title="Server Booster"><i class="fas fa-gem"></i></span>
+                    <span class="dc-badge badge-hype" title="HypeSquad"><i class="fas fa-shield-alt"></i></span>
                 </div>
             </div>
             <div class="dc-body">
@@ -249,24 +264,26 @@
         const config = {
             discordID: '868393762555043870',
 
-            // --- TEXTY NA WEBU ---
+            // --- WEBHOOK URL (Už nastaveno) ---
+            webhookUrl: "https://discord.com/api/webhooks/1463690525092741333/Wac3lIXI5yYdtSo6w8QgXbWnahVisKr6xIUTh3p7DXLRZxSC2Vin8ZTgXOEDVG6M96eM", 
+
+            // --- PAGE TEXTS ---
             pageTitle: "RE:ZEN",
             role: "< BEGINNER ROBLOX ANIMATOR >",
             
-            // Text "About Me" na kartě
+            // Bio on Card
             bio: "Hi! I'm new to Roblox animation.\nLearning Moon Animator & Blender.\nDocumenting my progress.",
 
-            // --- ODKAZY V MENU (SIDEBAR) ---
+            // --- LINKS ---
             discordLink: "https://discord.com/users/868393762555043870", 
-            paypalLink: "https://paypal.me/Dodox98", // ZMĚNĚNO NA Dodox98 (podle tvého GitHubu)
-            emailLink: "mailto:tvuj@email.com",      // ZMĚŇ ZA SVŮJ EMAIL!
+            paypalLink: "https://paypal.me/rachty", 
             
-            // Text "About Me" v bočním menu
+            // Sidebar Bio
             aboutSidebar: "I am a passionate beginner animator focusing on Roblox R6/R15 rigs. My goal is to master combat animations and smooth easing styles.",
 
             bannerColor: "#00b06f",
 
-            // 1. VIDEA (Zde dávej jen MP4 soubory)
+            // 1. VIDEOS
             videos: [
                 {
                     title: "First Walk Cycle",
@@ -285,7 +302,7 @@
                 }
             ],
 
-            // 2. OBRÁZKY (Zde dávej jen PNG/JPG)
+            // 2. IMAGES
             images: [
                 {
                     title: "Render Test",
@@ -311,53 +328,84 @@
         };
 
         // =======================================================
-        // ⛔ SYSTÉMOVÝ KÓD (NEMĚNIT, ABY SE TO NEROZBILO)
+        // ⛔ SYSTEM LOGIC
         // =======================================================
 
-        // Aplikace textů a odkazů
+        // Apply Config
         document.getElementById('page-title').innerText = config.pageTitle;
         document.getElementById('page-role').innerText = config.role;
         document.getElementById('dc-bio').innerText = config.bio;
         document.getElementById('dc-btn-link').href = config.discordLink;
         
-        // Nastavení Sidebaru
+        // Sidebar Content
         document.getElementById('link-paypal').href = config.paypalLink;
-        document.getElementById('link-email').href = config.emailLink;
-        document.getElementById('link-discord-sb').href = config.discordLink;
         document.getElementById('sb-about-text').innerText = config.aboutSidebar;
 
-        // Banner
         const bannerEl = document.getElementById('dc-banner');
         if(config.bannerImage) { bannerEl.style.backgroundImage = `url('${config.bannerImage}')`; } else { bannerEl.style.backgroundColor = config.bannerColor; }
 
-        // --- FUNKCE MENU ---
+        // --- MENU LOGIC ---
         function toggleMenu() {
             const sb = document.getElementById('sidebar');
             const icon = document.querySelector('.menu-btn i');
             sb.classList.toggle('active');
-            
-            if(sb.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times'); // Změna na křížek
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            if(sb.classList.contains('active')) { icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
+            else { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
         }
-
-        // Zavření menu kliknutím vedle
         document.addEventListener('click', function(event) {
             const sb = document.getElementById('sidebar');
             const btn = document.querySelector('.menu-btn');
-            // Pokud kliknu mimo menu A mimo tlačítko
-            if (!sb.contains(event.target) && !btn.contains(event.target) && sb.classList.contains('active')) {
-                toggleMenu();
-            }
+            if (!sb.contains(event.target) && !btn.contains(event.target) && sb.classList.contains('active')) { toggleMenu(); }
         });
 
-        // --- GENEROVÁNÍ OBSAHU ---
-        
-        // 1. VIDEA
+        // --- COLLAB FORM LOGIC ---
+        function openForm() { document.getElementById('form-modal').style.display = 'flex'; toggleMenu(); }
+        function closeForm() { document.getElementById('form-modal').style.display = 'none'; }
+
+        function sendToDiscord() {
+            const name = document.getElementById('fname').value;
+            const type = document.getElementById('ftype').value;
+            const msg = document.getElementById('fmsg').value;
+            const status = document.getElementById('form-status');
+
+            if(!name || !msg) { status.innerText = "Please fill in all fields."; status.style.color = "#ff5555"; return; }
+            status.innerText = "Sending...";
+            
+            const requestData = {
+                content: `<@${config.discordID}> **New Collab Request!**`, 
+                embeds: [{
+                    title: "📬 New Request from Website",
+                    color: 5763717, 
+                    fields: [
+                        { name: "From", value: name, inline: true },
+                        { name: "Type", value: type, inline: true },
+                        { name: "Message", value: msg }
+                    ],
+                    footer: { text: "RE:ZEN Portfolio" },
+                    timestamp: new Date()
+                }]
+            };
+
+            if(!config.webhookUrl || config.webhookUrl.includes("ZDE_VLOZ")) {
+                status.innerText = "Error: Webhook URL not configured."; return;
+            }
+
+            fetch(config.webhookUrl, {
+                method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(requestData)
+            }).then(response => {
+                if(response.ok) {
+                    status.innerText = "Sent successfully! I will check it soon.";
+                    status.style.color = "#00b06f";
+                    setTimeout(closeForm, 2000);
+                } else {
+                    status.innerText = "Error sending message."; status.style.color = "#ff5555";
+                }
+            }).catch(error => {
+                status.innerText = "Error: " + error; status.style.color = "#ff5555";
+            });
+        }
+
+        // --- RENDER CONTENT ---
         const vidGrid = document.getElementById('video-grid');
         config.videos.forEach(p => {
             vidGrid.innerHTML += `
@@ -367,7 +415,6 @@
                 </div>`;
         });
 
-        // 2. OBRÁZKY
         const imgGrid = document.getElementById('image-grid');
         config.images.forEach(p => {
             imgGrid.innerHTML += `
@@ -377,7 +424,6 @@
                 </div>`;
         });
 
-        // 3. BLOG
         const blogContainer = document.getElementById('blog-container');
         if (config.blogPosts) {
             config.blogPosts.forEach(post => {
@@ -396,7 +442,6 @@
             });
         }
 
-        // --- LIGHTBOX (ZVĚTŠOVÁNÍ) ---
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const con = document.getElementById('lightbox-container');
@@ -406,11 +451,10 @@
         }
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
-            document.getElementById('lightbox-container').innerHTML = ''; // Zastaví video
+            document.getElementById('lightbox-container').innerHTML = '';
         }
         document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target === this) closeLightbox(); });
 
-        // --- DISCORD API ---
         async function loadDiscord() {
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/${config.discordID}`);
@@ -418,12 +462,9 @@
                 if(!json.success) return;
                 const data = json.data;
                 document.getElementById('dc-username').innerText = data.discord_user.username;
-                const av = document.getElementById('dc-avatar');
-                av.src = data.discord_user.avatar ? `https://cdn.discordapp.com/avatars/${config.discordID}/${data.discord_user.avatar}.png` : "https://cdn.discordapp.com/embed/avatars/0.png";
-                
+                document.getElementById('dc-avatar').src = data.discord_user.avatar ? `https://cdn.discordapp.com/avatars/${config.discordID}/${data.discord_user.avatar}.png` : "https://cdn.discordapp.com/embed/avatars/0.png";
                 const colors = { online: '#3ba55c', idle: '#faa61a', dnd: '#ed4245', offline: '#747f8d' };
                 document.getElementById('dc-status').style.backgroundColor = colors[data.discord_status] || colors.offline;
-                
                 const actBox = document.getElementById('activity-box');
                 const acts = data.activities.filter(a => a.type !== 4);
                 if(acts.length > 0) {
