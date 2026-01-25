@@ -185,6 +185,38 @@
 
         video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
 
+        /* --- 6. LOGOS SECTION --- */
+        .logo-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 20px 0; /* Zmenšený padding, protože jsme smazali nadpis */
+        }
+
+        .logo-item {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-primary);
+            box-shadow: 0 0 25px var(--accent-glow), inset 0 0 25px var(--accent-glow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #000;
+        }
+
+        .logo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--accent-primary), inset 0 0 30px var(--accent-primary);
+        }
+
+        .logo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         /* --- 7. TIMELINE --- */
         .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
@@ -329,6 +361,14 @@
                 </video>
             </div>
         </div>
+    </section>
+
+    <section class="section-container" id="logos">
+        <div class="logo-grid">
+            <div class="logo-item">
+                <img src="https://images-ext-1.discordapp.net/external/Bts8s8YfClENtE_mNCDfZ5wUWSilbHmJ9F8xPopNOG4/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/868393762555043870/362c59f0bd0fd33b9ed064bce1c7b93d.png?format=webp&quality=lossless" alt="My Logo">
+            </div>
+            </div>
     </section>
 
     <section class="section-container" id="blog">
