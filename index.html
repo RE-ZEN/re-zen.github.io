@@ -55,11 +55,12 @@
             width: 90%; max-width: 1200px;
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 30px;
-            background: rgba(10, 10, 10, 0.7);
+            background: rgba(10, 10, 10, 0.85); /* Tmavší pozadí pro lepší čitelnost */
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 100px;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         .logo {
@@ -70,7 +71,6 @@
         
         .logo span.accent { color: var(--accent-primary); }
 
-        /* ✅ Roblox Badge in Nav */
         .roblox-badge {
             display: flex;
             align-items: center;
@@ -139,7 +139,8 @@
 
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            /* OPTIMALIZACE PRO MOBIL: minmax zmenšeno na 280px */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 25px;
         }
 
@@ -211,11 +212,7 @@
             box-shadow: 0 0 50px var(--accent-primary), inset 0 0 30px var(--accent-primary);
         }
 
-        .logo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .logo-item img { width: 100%; height: 100%; object-fit: cover; }
         
         /* --- 7. TIMELINE --- */
         .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -246,7 +243,7 @@
             box-shadow: 0 0 40px var(--accent-glow);
         }
 
-        /* --- 9. MODAL & ANIMATIONS --- */
+        /* --- 9. MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(10px);
@@ -260,20 +257,10 @@
             opacity: 0; transform: scale(0.8);
         }
 
-        /* Closing Animation Class */
-        .modal-box.closing {
-            animation: fadeOutScale 0.5s forwards;
-        }
+        .modal-box.closing { animation: fadeOutScale 0.5s forwards; }
 
-        @keyframes fadeInScale { 
-            from {opacity:0; transform:scale(0.8);} 
-            to {opacity:1; transform:scale(1);} 
-        }
-
-        @keyframes fadeOutScale { 
-            from {opacity:1; transform:scale(1);} 
-            to {opacity:0; transform:scale(0.8);} 
-        }
+        @keyframes fadeInScale { from {opacity:0; transform:scale(0.8);} to {opacity:1; transform:scale(1);} }
+        @keyframes fadeOutScale { from {opacity:1; transform:scale(1);} to {opacity:0; transform:scale(0.8);} }
 
         .input-field { width: 100%; padding: 15px; background: #050505; border: 1px solid #333; color: #fff; margin-bottom: 20px; border-radius: 8px; font-family: var(--font-body); }
         .input-field:focus { outline: none; border-color: var(--accent-primary); }
@@ -281,6 +268,54 @@
         .success-anim { display: none; text-align: center; }
         .checkmark-circle { width: 80px; height: 80px; margin: 0 auto 20px; border: 2px solid var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--accent-primary); box-shadow: 0 0 20px var(--accent-glow); animation: pulseSuccess 1s infinite; }
         @keyframes pulseSuccess { 0% {box-shadow: 0 0 0 0 var(--accent-glow);} 70% {box-shadow: 0 0 0 20px transparent;} 100% {box-shadow: 0 0 0 0 transparent;} }
+
+        /* --- 📱 MOBILE OPTIMIZATION (RESPONSIVE DESIGN) --- */
+        @media (max-width: 768px) {
+            
+            /* Navigace na mobilu - svislá */
+            nav {
+                width: 95%;
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.8rem;
+            }
+
+            /* Hero sekce - menší text */
+            .hero h1 { font-size: 3rem; }
+            .hero h2 { font-size: 1rem; letter-spacing: 2px; }
+            .btn-neon { padding: 15px 30px; font-size: 1rem; }
+
+            /* Grid se přizpůsobí na 1 sloupec */
+            .video-grid, .timeline-grid {
+                grid-template-columns: 1fr; /* Jedna karta přes celou šířku */
+            }
+
+            /* Padding obsahu */
+            .section-container {
+                padding: 0 15px;
+                margin-bottom: 60px;
+            }
+
+            /* Logo v sekci Logos - menší */
+            .logo-item {
+                width: 140px;
+                height: 140px;
+            }
+
+            /* Modal na mobilu */
+            .modal-box {
+                width: 95%;
+                padding: 25px;
+            }
+        }
 
     </style>
 </head>
@@ -328,7 +363,6 @@
                     <source src="crouch.mp4" type="video/mp4">
                 </video>
             </div>
-
             <div class="video-card">
                 <div class="video-header">
                     <span class="video-title">Jump Collect</span>
@@ -338,7 +372,6 @@
                     <source src="jump.mp4" type="video/mp4">
                 </video>
             </div>
-
             <div class="video-card">
                 <div class="video-header">
                     <span class="video-title">Walking Cycle</span>
@@ -348,7 +381,6 @@
                     <source src="walk.mp4" type="video/mp4">
                 </video>
             </div>
-
             <div class="video-card">
                 <div class="video-header">
                     <span class="video-title">Equip Fists</span>
