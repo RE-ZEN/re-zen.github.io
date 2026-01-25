@@ -69,9 +69,19 @@
             color: var(--text-main); letter-spacing: 2px;
         }
         
-        /* Toto je pro "ZEN" v navigaci */
         .logo span.accent { color: var(--accent-primary); }
 
+        /* --- NOVE LOGO V NAVIGACI (POZICE 1) --- */
+        .nav-avatar {
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            margin-right: 12px; 
+            border: 2px solid var(--accent-primary);
+            object-fit: cover;
+        }
+
+        /* --- NOVE ROBLOX LOGO (POZICE 2) --- */
         .roblox-badge {
             display: flex;
             align-items: center;
@@ -79,15 +89,15 @@
             background: rgba(0, 255, 157, 0.1);
             border: 1px solid var(--accent-primary);
             border-radius: 12px;
-            padding: 4px 8px;
-            margin-left: 12px;
-            height: 28px;
+            padding: 6px 10px;
+            margin-left: 15px;
+            height: 32px;
             box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .roblox-badge img {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             object-fit: contain;
         }
 
@@ -119,14 +129,12 @@
             font-family: var(--font-heading);
             font-size: 5rem; line-height: 0.9;
             text-transform: uppercase;
-            /* Gradient pro "RE:" */
             background: linear-gradient(to bottom, #ffffff, #888888);
-            -webkit-background-clip: text; 
-            color: transparent;
+            -webkit-background-clip: text; color: transparent;
             margin-bottom: 20px;
         }
-        
-        /* ✅ NOVÉ: Obarvení "ZEN" v hlavním nadpisu na zeleno */
+
+        /* --- ZELENÉ "ZEN" V HLAVNÍM NADPISU --- */
         .hero h1 .accent-text {
             background: none;
             -webkit-background-clip: border-box;
@@ -272,10 +280,12 @@
 
     <nav>
         <div class="logo">
-            <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-8B55070087790D7824888062010C2404-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; border: 2px solid var(--accent-primary);">
+            <img class="nav-avatar" src="https://images-ext-1.discordapp.net/external/Bts8s8YfClENtE_mNCDfZ5wUWSilbHmJ9F8xPopNOG4/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/868393762555043870/362c59f0bd0fd33b9ed064bce1c7b93d.png?format=webp&quality=lossless" alt="Avatar">
+            
             RE:<span class="accent">ZEN</span>
+            
             <div class="roblox-badge">
-                <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/roblox_logo_icon_168856.png" alt="Roblox">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Roblox_Logo_2022_icon.svg/150px-Roblox_Logo_2022_icon.svg.png" alt="Roblox">
             </div>
         </div>
         <div class="nav-links">
