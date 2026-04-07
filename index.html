@@ -112,7 +112,7 @@ body::before {
 @keyframes ambientPulse { from { opacity: 0.35; } to { opacity: 0.6; } }
 
 /* =========================================
-   NAVIGATION (OPRAVENO)
+   NAVIGATION
    ========================================= */
 nav {
   position: fixed; top: 18px; left: 50%;
@@ -130,7 +130,7 @@ nav {
 }
 .nav-left { 
   display: flex; align-items: center; gap: 16px; 
-  flex-shrink: 0; /* Zabraňuje smrsknutí */
+  flex-shrink: 0;
 }
 .logo {
   font-family: var(--font-head);
@@ -149,7 +149,7 @@ nav {
   text-decoration: none;
   transition: var(--transition);
   box-shadow: 0 0 12px rgba(0,255,157,0.1);
-  flex-shrink: 0; /* Oprava slívání */
+  flex-shrink: 0;
   overflow: hidden;
 }
 .roblox-badge:hover {
@@ -161,7 +161,7 @@ nav {
 /* Nav links */
 .nav-links {
   display: flex; align-items: center; gap: 28px;
-  flex-shrink: 0; /* Oprava slívání */
+  flex-shrink: 0;
 }
 .nav-links a {
   text-decoration: none; color: var(--muted);
@@ -1047,31 +1047,66 @@ function sendMessage() {
   btn.textContent = 'Sending…';
 
   if (!WEBHOOK_URL) {
-    // No webhook configured — still show success for demo
     showSuccess();
     return;
   }
 
+  // Generování aktuálního Unix timestampu pro Discord (v sekundách)
+  const unixTime = Math.floor(Date.now() / 1000);
+
+  // Pokročilý JSON Payload pro Discord Webhook
+  const payload = {
+    // Zpráva mimo embed, která zajistí skutečný PING na tvoje ID
+    content: "🔔 <@868393762555043870> **Máš novou žádost o spolupráci z webu!**",
+    embeds: [
+      {
+        title: "📬 New Commission Request",
+        description: "Někdo tě právě kontaktoval přes tvé portfolio **RE:ZEN**.",
+        color: 5763719, // Neon zelená #00ff9d
+        author: {
+          name: "RE:ZEN Notification System",
+          icon_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Roblox_player_icon_black.svg/256px-Roblox_player_icon_black.svg.png"
+        },
+        thumbnail: {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Blender_logo_no_text.svg/512px-Blender_logo_no_text.svg.png"
+        },
+        fields: [
+          {
+            name: "👤 Client / Discord Handle",
+            value: "`" + name + "`", 
+            inline: true
+          },
+          {
+            name: "⏱️ Time Received",
+            value: "<t:" + unixTime + ":F>", 
+            inline: true
+          },
+          {
+            name: "📝 Message / Project Details",
+            value: ">>> " + msg, 
+            inline: false
+          }
+        ],
+        footer: {
+          text: "RE:ZEN Portfolio • Secure Delivery",
+          icon_url: "https://img.icons8.com/color/48/000000/verified-badge.png"
+        },
+        timestamp: new Date().toISOString()
+      }
+    ]
+  };
+
   fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      content: null,
-      embeds: [{
-        title: '🚀 New Commission Request',
-        color: 0x00ff9d,
-        fields: [
-          { name: 'Name / Discord', value: name, inline: true },
-          { name: 'Message', value: msg }
-        ],
-        footer: { text: 'RE:ZEN Portfolio' },
-        timestamp: new Date().toISOString()
-      }]
-    })
+    body: JSON.stringify(payload)
   })
   .then(res => {
-    if (res.ok) { showSuccess(); }
-    else { throw new Error('HTTP ' + res.status); }
+    if (res.ok) { 
+        showSuccess(); 
+    } else { 
+        throw new Error('HTTP ' + res.status); 
+    }
   })
   .catch(() => {
     btn.disabled = false;
