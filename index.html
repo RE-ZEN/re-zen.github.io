@@ -902,7 +902,7 @@ footer {
    Replace the empty string below with your Discord
    Webhook URL and the form will work immediately.
    ─────────────────────────────────────────────────── */
-const WEBHOOK_URL = ""; // ← paste your Discord Webhook URL here
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1463690525092741333/Wac3lIXI5yYdtSo6w8QgXbWnahVisKr6xIUTh3p7DXLRZxSC2Vin8ZTgXOEDVG6M96eM"; // ← paste your Discord Webhook URL here
 
 /* ── CUSTOM CURSOR ─────────────────────────────────── */
 const dot  = document.getElementById('cursor-dot');
@@ -1054,7 +1054,7 @@ function sendMessage() {
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
-  if (!https://discord.com/api/webhooks/1463690525092741333/Wac3lIXI5yYdtSo6w8QgXbWnahVisKr6xIUTh3p7DXLRZxSC2Vin8ZTgXOEDVG6M96eM) {
+  if (!WEBHOOK_URL) {
     // No webhook configured — still show success for demo
     showSuccess();
     return;
@@ -1096,7 +1096,7 @@ function showSuccess() {
 
 /* ── DISCORD COPY ──────────────────────────────────── */
 function copyDiscord() {
-  navigator.clipboard.writeText('rachty_').then(() => {
+  navigator.clipboard.writeText('re_zen').then(() => {
     const fb = document.getElementById('copyFeedback');
     fb.classList.add('show');
     setTimeout(() => fb.classList.remove('show'), 2000);
