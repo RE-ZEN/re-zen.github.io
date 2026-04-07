@@ -112,7 +112,7 @@ body::before {
 @keyframes ambientPulse { from { opacity: 0.35; } to { opacity: 0.6; } }
 
 /* =========================================
-   NAVIGATION
+   NAVIGATION (OPRAVENO)
    ========================================= */
 nav {
   position: fixed; top: 18px; left: 50%;
@@ -128,7 +128,10 @@ nav {
   z-index: 1000;
   box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-left { 
+  display: flex; align-items: center; gap: 16px; 
+  flex-shrink: 0; /* Zabraňuje smrsknutí */
+}
 .logo {
   font-family: var(--font-head);
   font-size: 1.6rem; font-weight: 700;
@@ -146,17 +149,19 @@ nav {
   text-decoration: none;
   transition: var(--transition);
   box-shadow: 0 0 12px rgba(0,255,157,0.1);
+  flex-shrink: 0; /* Oprava slívání */
+  overflow: hidden;
 }
 .roblox-badge:hover {
   background: rgba(0,255,157,0.22);
   box-shadow: 0 0 22px var(--accent-glow);
   transform: scale(1.06);
 }
-.roblox-badge svg { width: 40px; height: 20px; }
 
 /* Nav links */
 .nav-links {
   display: flex; align-items: center; gap: 28px;
+  flex-shrink: 0; /* Oprava slívání */
 }
 .nav-links a {
   text-decoration: none; color: var(--muted);
@@ -654,21 +659,16 @@ footer {
 </head>
 <body>
 
-<!-- Ambient glow -->
 <div class="glow-top"></div>
 
-<!-- Custom cursor -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
-<!-- ==================== NAV ==================== -->
 <nav>
   <div class="nav-left">
     <div class="logo">RE:<span class="a">ZEN</span></div>
-    <!-- Roblox Tilt inline SVG logo -->
     <a href="https://www.roblox.com/users/2830660685/profile" target="_blank" class="roblox-badge" title="Roblox Profile">
-      <svg viewBox="0 0 100 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Roblox">
-        <!-- Roblox "tilt" wordmark simplified as the iconic tilted square logo -->
+      <svg width="40" height="20" viewBox="0 0 100 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Roblox">
         <rect x="30" y="5" width="40" height="36" rx="5" fill="#00ff9d" transform="rotate(-8 50 23)"/>
         <rect x="36" y="12" width="28" height="22" rx="3" fill="#050505" transform="rotate(-8 50 23)"/>
         <text x="50" y="28" font-family="Arial Black, sans-serif" font-weight="900" font-size="14" fill="#00ff9d" text-anchor="middle" transform="rotate(-8 50 23)">R</text>
@@ -676,19 +676,17 @@ footer {
     </a>
   </div>
 
-  <nav class="nav-links">
+  <div class="nav-links">
     <a href="#portfolio">Showreel</a>
     <a href="#devlog">DevLog</a>
     <a href="#" onclick="openModal(event)">Contact</a>
-  </nav>
+  </div>
 
-  <!-- Mobile hamburger -->
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose">×</button>
   <a href="#portfolio" onclick="closeMobile()">Showreel</a>
@@ -696,7 +694,6 @@ footer {
   <a href="#" onclick="closeMobile(); openModal(event)">Contact</a>
 </div>
 
-<!-- ==================== HERO ==================== -->
 <section class="hero">
   <div class="hero-pills reveal">
     <div class="pill">
@@ -726,7 +723,6 @@ footer {
   </div>
 </section>
 
-<!-- ==================== PORTFOLIO ==================== -->
 <section class="section reveal" id="portfolio">
   <div class="section-header">
     <span class="section-num">01</span>
@@ -824,7 +820,6 @@ footer {
   </div>
 </section>
 
-<!-- ==================== DEVLOG ==================== -->
 <section class="section reveal" id="devlog">
   <div class="section-header">
     <span class="section-num">02</span>
@@ -846,7 +841,6 @@ footer {
   </div>
 </section>
 
-<!-- ==================== FOOTER ==================== -->
 <footer>
   <div class="footer-row">
     <a href="https://guns.lol/re_zen" target="_blank" class="footer-link">
@@ -866,7 +860,6 @@ footer {
   <p class="footer-copy">© 2026 RE:ZEN — ALL RIGHTS RESERVED</p>
 </footer>
 
-<!-- ==================== MODAL ==================== -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <div class="modal-header">
@@ -896,7 +889,6 @@ footer {
   </div>
 </div>
 
-<!-- ==================== SCRIPTS ==================== -->
 <script>
 /* ── WEBHOOK ──────────────────────────────────────────
    Replace the empty string below with your Discord
